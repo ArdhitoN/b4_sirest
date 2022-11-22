@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('example_app.urls')),
     path('restopay/', include('restopay.urls')),
+    path('kategori_makanan/', include('kategori_makanan.urls')),
 ]

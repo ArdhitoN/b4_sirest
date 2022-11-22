@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'restopay',
     'authentication',
     'tarifPengiriman',
-    'Makanan',
+    'Makanan',,
+    'kategori_makanan',
 ]
 
 
