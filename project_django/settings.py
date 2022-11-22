@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'example_app',
-    'restopay'
+    'restopay',
+    'authentication',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
