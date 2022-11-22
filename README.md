@@ -31,7 +31,7 @@ Apabila kamu ingin menggunakan repositori ini sebagai repositori awalan yang nan
 
    ```shell
    # Windows
-   .\env\Scripts\activate
+   env\Scripts\activate
    # Linux/Unix, e.g. Ubuntu, MacOS
    source env/bin/activate
    ```
