@@ -17,14 +17,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 {% endblock meta %} {% block content %}
-<div class="container my-5 px-5">
+<form class="container my-5 px-5">
   <div class="row row-cols-1">
     <div class="col text-center mb-3">
       <h4>Form Buat Jam Operasional</h4>
     </div>
     <div class="col mb-3">
-      <select class="form-select" id="inputGroupSelect01">
-        <option selected>Pilih Hari Operasional</option>
+      <select class="form-select" id="inputGroupSelect01" required>
+        <option selected disabled>Pilih Hari Operasional</option>
         <option value="Senin">Senin</option>
         <option value="Selasa">Selasa</option>
         <option value="Rabu">Rabu</option>
@@ -37,14 +37,14 @@
     <div class="col">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Pilih Jam</span>
-        <input class="form-control" type="text" id="datetime" />
+        <input class="form-control" type="text" id="datetime" required />
       </div>
     </div>
     <div class="col text-center mt-3 mb-3">
       <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
   </div>
-</div>
+</form>
 <script>
   // Below code sets format to the
   // datetimepicker having id as

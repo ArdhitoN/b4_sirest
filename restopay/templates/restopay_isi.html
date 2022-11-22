@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container my-5 px-5">
+<form class="container my-5 px-5">
   <div class="row row-cols-1">
     <div class="col text-center mb-2">
       <h4>Form Isi Saldo</h4>
@@ -7,7 +7,12 @@
     <div class="col">
       <h6>Saldo saat ini: [teks]</h6>
       <label for="nominalPengisian" class="form-label">Nominal Pengisian</label>
-      <input type="text" class="form-control mb-3" id="nominalPengisian" />
+      <input
+        type="text"
+        class="form-control mb-3"
+        id="nominalPengisian"
+        required
+      />
     </div>
     <div class="col">
       <h6>dari:</h6>
@@ -18,5 +23,5 @@
       <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
   </div>
-</div>
+</form>
 {% endblock %}
