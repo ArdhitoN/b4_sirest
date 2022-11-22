@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'example_app',
     'restopay',
     'authentication',
+    'tarifPengiriman',
+    'Makanan',
 ]
 
 
