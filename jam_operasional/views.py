@@ -6,3 +6,6 @@ def jam_buat(response):
 
 def jam_daftar(response):
     return render(response, 'jam_daftar.html')
+
+def jam_ubah(response):
+    return render(response, 'jam_ubah.html')
