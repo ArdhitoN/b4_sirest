@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container my-5 px-5">
+  <div class="row row-cols-1">
+    <div class="col text-center mb-2">
+      <h4>Form Tarik Saldo</h4>
+    </div>
+    <div class="col">
+      <h6>Saldo saat ini: [teks]</h6>
+      <label for="nominalPenarikan" class="form-label">Nominal Penarikan</label>
+      <input type="text" class="form-control mb-3" id="nominalPenarikan" />
+    </div>
+    <div class="col">
+      <h6>ke:</h6>
+      <h6>Nama Bank: [teks]</h6>
+      <h6>Nomor Rekening: [teks]</h6>
+    </div>
+    <div class="col text-center mt-5 mb-3">
+      <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
