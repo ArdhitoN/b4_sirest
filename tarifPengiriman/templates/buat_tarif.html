@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<title>Buat Tarif</title>
+{% endblock meta %}
+
+{% block content %}
+
+<form  method="POST">
+  {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="provinsi" class="form-label" >Provinsi: </label>
+      <input type="text" class="form-control" id="provinsi" name="provinsi">
+      <div id="provinsiHelp" class="form-text"></div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="tarif-motor" class="form-label">Tarif Motor: </label>
+      <input type="number" class="form-control" id="tarif-motor" name="tarif-motor">
+    </div>
+
+        
+    <div class="mb-3">
+      <label for="tarif-motor" class="form-label">Tarif Mobil: </label>
+      <input type="number" class="form-control" id="tarif-mobil" name="tarif-mobil">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Simpan</button>
+
+</form>
+
+{% endblock content %}
