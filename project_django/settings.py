@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     'restopay',
     'jam_operasional',
     'transaksi_pesanan',
+    'authentication',
+    'tarifPengiriman',
+    'Makanan',
+    'kategori_makanan',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

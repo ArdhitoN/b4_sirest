@@ -23,6 +23,10 @@ urlpatterns = [
     path('restopay/', include('restopay.urls')),
     path('jam_operasional/', include('jam_operasional.urls')),
     path('transaksi_pesanan/', include('transaksi_pesanan.urls')),
+    path('kategori_makanan/', include('kategori_makanan.urls')),
+    path('tarifPengiriman/', include('tarifPengiriman.urls')),
+    path('Makanan/', include('Makanan.urls')),
+    
 ]
 
 urlpatterns += staticfiles_urlpatterns()
