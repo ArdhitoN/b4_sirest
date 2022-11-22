@@ -21,4 +21,7 @@ urlpatterns = [
     path('', include('example_app.urls')),
     path('restopay/', include('restopay.urls')),
     path('kategori_makanan/', include('kategori_makanan.urls')),
+    path('tarifPengiriman/', include('tarifPengiriman.urls')),
+    path('Makanan/', include('Makanan.urls')),
+    
 ]
