@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'example_app',
     'restopay',
-    'jam_operasional'
+    'jam_operasional',
+    'transaksi_pesanan',
 ]
 
 MIDDLEWARE = [
