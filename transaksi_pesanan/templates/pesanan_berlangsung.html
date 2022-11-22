@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container my-5 px-5">
+  <div class="row row-cols-1">
+    <div class="col text-center mb-3">
+      <h4>Pesanan Berlangsung</h4>
+    </div>
+    <div class="col mb-3">
+      <table class="table">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No</th>
+            <th scope="col">Nama Pelanggan</th>
+            <th scope="col">Waktu Pesanan Dibuat</th>
+            <th scope="col">Status Pesanan</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mikayla Putri</td>
+            <td>2022-11-04 11:30:05</td>
+            <td>Menunggu Konfirmasi Restoran</td>
+            <td>
+              <a href="{% url 'jam-buat' %}" class="btn btn-secondary"
+                >Detail</a
+              >
+              <a href="{% url 'jam-buat' %}" class="btn btn-primary"
+                >Konfirmasi</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Kenny Agung</td>
+            <td>2022-11-04 10:54:02</td>
+            <td>Pesanan Dibuat</td>
+            <td>
+              <a href="{% url 'jam-buat' %}" class="btn btn-secondary"
+                >Detail</a
+              >
+              <a href="{% url 'jam-buat' %}" class="btn btn-success">Kirim</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
