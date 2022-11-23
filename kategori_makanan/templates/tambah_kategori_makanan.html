@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div>Form Buat Kategori Makanan</div>
+            <div>
+                <span>Nama Kategori Makanan</span>
+                <span><input type="text" name="" id=""></span>
+            </div>
+            <div><button>Simpan</button></div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
