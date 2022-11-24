@@ -3,7 +3,7 @@
 {% block content %}
 <div>
     <div>
-        <table>
+        <table class = "table bordered-table">
             <tr>
                 <th>No</th>
                 <th>Nama Kategori Makanan</th>
@@ -13,7 +13,7 @@
             <tr>
                 <th>{{forloop.counter}}</th>
                 <th>{{kategori.name}}</th>
-                <th><button>Hapus</button></th>
+                <th><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.pk%}">Hapus</a></button></th>
             </tr>
             {% endfor %}
         </table>

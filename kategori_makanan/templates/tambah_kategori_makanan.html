@@ -8,10 +8,17 @@
             <div>Form Buat Kategori Makanan</div>
             <div>
                 <span>Nama Kategori Makanan</span>
-                <span><input type="text" name="" id=""></span>
+                <span><input type="text" name="kategori" id=""></span>
             </div>
             <div><button>Simpan</button></div>
         </form>
     </div>
+    {% if messages %}  
+        <div>   
+            {% for message in messages %}  
+                <div>{{ message }}</div>  
+                {% endfor %}  
+        </div>   
+    {% endif %}
 </div>
 {% endblock content %}
