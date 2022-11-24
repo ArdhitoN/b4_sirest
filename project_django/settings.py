@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'tarifPengiriman',
     'Makanan',
     'kategori_makanan',
-    'dashboard'
+    'dashboard',
+    'kategori_restoran',
+    'bahan_makanan',
 ]
 
 

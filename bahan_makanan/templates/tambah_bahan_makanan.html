@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbarPelanggan.html' %}
+<div>
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div>Form Buat Bahan Makanan</div>
+            <div>
+                <span>Nama Bahan Makanan</span>
+                <span><input type="text" name="bahan" id=""></span>
+            </div>
+            <div><button type="submit">Simpan</button></div>
+        </form>
+    </div>
+    {% if messages %}  
+        <div>   
+            {% for message in messages %}  
+                <div>{{ message }}</div>  
+                {% endfor %}  
+        </div>   
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbarPelanggan.html' %}
+<div>
+    <div>
+        <table class = "table bordered-table">
+            <tr>
+                <th>No</th>
+                <th>Nama Kategori Restoran</th>
+                <th>Aksi</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Indonesia</td>
+                <td><button><a href="{% url 'kategori_restoran:delete_kategori_restoran'%}">Hapus</a></button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>India</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jepang</td>
+                <td><button><a href="{% url 'kategori_restoran:delete_kategori_restoran'%}">Hapus</a></button></td>
+            </tr>
+            {% comment %}
+            {% for kategori in kategori_restoran %}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th>{{kategori.name}}</th>
+                <th><button><a href="{% url 'kategori_restoran:delete_kategori_restoran' kategori.pk%}">Hapus</a></button></th>
+            </tr>
+            {% endfor %}
+            {% endcomment %}
+        </table>
+    </div>
+</div>
+{% endblock content %}

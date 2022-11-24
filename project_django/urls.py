@@ -28,6 +28,8 @@ urlpatterns = [
     path('Makanan/', include('Makanan.urls')),
     path('authentication/', include('authentication.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('kategori_restoran/', include('kategori_restoran.urls')),
+    path('bahan_makanan/', include('bahan_makanan.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

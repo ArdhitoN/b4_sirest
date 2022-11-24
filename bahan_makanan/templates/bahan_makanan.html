@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbarPelanggan.html' %}
+<div>
+    <div>
+        <table class = "table bordered-table">
+            <tr>
+                <th>No</th>
+                <th>Nama Bahan Makanan</th>
+                <th>Aksi</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Garam</td>
+                <td><button><a href="{% url 'bahan_makanan:delete_bahan_makanan'%}">Hapus</a></button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Gula</td>
+                <td></td>
+            </tr>
+            {% comment %}
+            {% for bahan in bahan_makanan %}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th>{{bahan.name}}</th>
+                <th><button><a href="{% url 'bahan_makanan:delete_bahan_makanan' bahan.pk%}">Hapus</a></button></th>
+            </tr>
+            {% endfor %}
+            {% endcomment %}
+        </table>
+    </div>
+</div>
+{% endblock content %}
