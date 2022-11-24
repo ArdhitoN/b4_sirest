@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<title>Register Kurir</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+
+<div class="text-center">
+  <h1>Formulir Pendaftaran Kurir</h1>
+</div>
+<!-- 
+Email: [isian]
+Password: [isian]
+Nama: [isian]
+Nomor HP: [isian]
+NIK: [isian]
+Nama bank: [isian]
+Nomor rekening: [isian]
+
+Plat Nomor Kendaraan: [isian]
+Nomor SIM: [isian]
+Jenis kendaraan: [dropdown, ‘Mobil’ atau ‘Motor’]
+Merk kendaraan: [isian] -->
+
+
+
+<form  method="POST">
+  {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="email" class="form-label" >Email: </label>
+      <input type="email" class="form-control" id="email" name="email">
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label" >Password: </label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+      
+    <div class="mb-3">
+        <label for="Nama" class="form-label">Nama: </label>
+        <input type="text" class="form-control" id="Nama" name="Nama">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nomor HP: </label>
+        <input type="text" class="form-control" name="Nomor">
+    </div>
+
+    
+    <div class="mb-3">
+        <label class="form-label">NIK: </label>
+        <input type="text" class="form-control" name="NIK">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Nama Bank: </label>
+        <input type="text" class="form-control" name="Bank">
+    </div>
+
+    
+    <div class="mb-3">
+        <label  class="form-label">Nomor Rekening: </label>
+        <input type="text" class="form-control" name="NomorRekening">
+    </div>
+
+
+
+    <div class="mb-3">
+        <label  class="form-label">Plat Nomor: </label>
+        <input type="text" class="form-control" name="PlatNomor">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Nomor SIM: </label>
+        <input type="text" class="form-control" name="NomorSIM">
+    </div>
+      
+
+    <div class="mb-3">
+        <label class="form-label">Jenis Kendaraan: </label>
+        <select class="form-select" aria-label="Default select example">
+          <option selected></option>
+          <option value="1">Mobil</option>
+          <option value="2">Motor</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Merk Kendaraan: </label>
+        <input type="text" class="form-control" name="MerkKendaraan">
+    </div> 
+    
+    <button type="submit" class="btn btn-primary">DAFTAR</button>
+
+</form>
+
+{% endblock content %}
