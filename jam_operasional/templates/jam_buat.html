@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block meta %}
+{% include 'navbarRestoran.html' %} {% block meta %}
 <!-- https://www.geeksforgeeks.org/how-to-set-bootstrap-timepicker-using-datetimepicker-library/ -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -16,7 +16,7 @@
 />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-{% endblock meta %} {% block content %}
+{% endblock meta %}
 <form class="container my-5 px-5">
   <div class="row row-cols-1">
     <div class="col text-center mb-3">
@@ -62,4 +62,3 @@
     format: "hh:mm:ss a",
   });
 </script>
-{% endblock %}
