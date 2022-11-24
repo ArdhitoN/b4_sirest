@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<title>Register Restoran</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+
+<div class="text-center">
+  <h1>Formulir Pendaftaran Restoran</h1>
+</div>
+<!-- 
+Email: [isian]
+Password: [isian]
+Nama: [isian]
+Nomor HP: [isian]
+NIK: [isian]
+Nama bank: [isian]
+Nomor rekening: [isian]
+
+Nama restoran: [isian]
+Cabang: [isian]
+Nomor telepon: [isian]
+Jalan: [isian]
+Kecamatan: [isian]
+Kota: [isian]
+Provinsi: [dropdown, ambil data Province dari tabel DELIVERY_FEE_PER_KM]
+Kategori restoran: [dropdown, ambil data Name dari tabel RESTAURANT_CATEGORY] -->
+
+
+<form  method="POST">
+  {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="email" class="form-label" >Email: </label>
+      <input type="email" class="form-control" id="email" name="email">
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label" >Password: </label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+      
+    <div class="mb-3">
+        <label for="Nama" class="form-label">Nama: </label>
+        <input type="text" class="form-control" id="Nama" name="Nama">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nomor HP: </label>
+        <input type="text" class="form-control" name="Nomor">
+    </div>
+
+    
+    <div class="mb-3">
+        <label class="form-label">NIK: </label>
+        <input type="text" class="form-control" name="NIK">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Nama Bank: </label>
+        <input type="text" class="form-control" name="Bank">
+    </div>
+
+    
+    <div class="mb-3">
+        <label  class="form-label">Nomor Rekening: </label>
+        <input type="text" class="form-control" name="NomorRekening">
+    </div>
+
+
+
+    <div class="mb-3">
+        <label  class="form-label">Nama Restoran: </label>
+        <input type="text" class="form-control" name="NamaRestoran">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Cabang: </label>
+        <input type="text" class="form-control" name="Cabang">
+    </div>
+      
+      
+    <div class="mb-3">
+        <label  class="form-label">No telepon: </label>
+        <input type="text" class="form-control" name="NoTelepon">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Jalan: </label>
+        <input type="text" class="form-control" name="Jalan">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">Kecamatan: </label>
+        <input type="text" class="form-control" name="Kecamatan">
+    </div>
+      
+
+    
+    <div class="mb-3">
+        <label  class="form-label">Kota: </label>
+        <input type="text" class="form-control" name="Kota">
+    </div>
+    
+    <div class="mb-3">
+        <label  class="form-label">Provinsi: </label>
+        <input type="text" class="form-control" name="Provinsi">
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">Kategori restoran: </label>
+        <select class="form-select" aria-label="Default select example">
+          <option selected></option>
+          <option value="1">Fast Food</option>
+          <option value="2">Fast Casual Dining</option>
+          <option value="3">Cafe</option>
+          <option value="4">Casual Style Dining</option>
+          <option value="5">Fine Dining</option>
+        </select>
+    </div>
+    
+    
+    <button type="submit" class="btn btn-primary">DAFTAR</button>
+
+</form>
+
+{% endblock content %}
