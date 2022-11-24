@@ -1,4 +1,4 @@
-{% include 'restoran_nav.html' %}
+{% include 'navbarRestoran.html' %}
 <div class="container my-5 px-5">
   <div class="row row-cols-1">
     <div class="col text-center mb-3">
@@ -22,12 +22,10 @@
             <td>2022-11-04 11:30:05</td>
             <td>Menunggu Konfirmasi Restoran</td>
             <td>
-              <a href="{% url 'jam-buat' %}" class="btn btn-secondary"
+              <a href="{% url 'rpesanan-index' %}" class="btn btn-secondary"
                 >Detail</a
               >
-              <a href="{% url 'jam-buat' %}" class="btn btn-primary"
-                >Konfirmasi</a
-              >
+              <a href="#" class="btn btn-primary">Konfirmasi</a>
             </td>
           </tr>
           <tr>
@@ -36,10 +34,8 @@
             <td>2022-11-04 10:54:02</td>
             <td>Pesanan Dibuat</td>
             <td>
-              <a href="{% url 'jam-buat' %}" class="btn btn-secondary"
-                >Detail</a
-              >
-              <a href="{% url 'jam-buat' %}" class="btn btn-success">Kirim</a>
+              <a href="#" class="btn btn-secondary">Detail</a>
+              <a href="#" class="btn btn-success">Kirim</a>
             </td>
           </tr>
         </tbody>

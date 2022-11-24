@@ -1,63 +1,47 @@
-{% extends 'base.html' %} {% block content %}
-<div class="container my-5 px-5">
-  <div class="row row-cols-1">
-    <div class="col text-center mb-3">
-      <h4>Pesanan Berlangsung</h4>
-    </div>
+{% include 'navbarRestoran.html' %}
+<div class="container my-5 px-5 text-center">
+  <h4>Pesanan Berlangsung</h4>
+</div>
+<div class="container my-2 px-5 align-self-center">
+  <div class="row row-cols-3">
     <div class="col mb-3 mx-5">
       <p>Waktu Pemesanan: [teks]</p>
-      <br />
       <p>Nama Pelanggan: [teks]</p>
-      <br />
       <p>Jalan: [teks]</p>
-      <br />
       <p>Kecamatan: [teks]</p>
-      <br />
       <p>Kota: [teks]</p>
-      <br />
       <p>Provinsi: [teks]</p>
-      <br />
-      <br />
+
       <p>Restoran: [teks]</p>
-      <br />
       <p>Jalan: [teks]</p>
-      <br />
       <p>Kecamatan: [teks]</p>
-      <br />
       <p>Kota: [teks]</p>
-      <br />
       <p>Provinsi: [teks]</p>
-      <br />
       <p>Makanan yang dipesan: [teks]</p>
-      <br />
       <ul>
         <li>Nama Makanan (jumlah) - [catatan]</li>
         <li>Nama Makanan (jumlah) - [catatan]</li>
       </ul>
       <p>Total Harga Makanan: [teks]</p>
-      <br />
       <p>Total Diskon: [teks]</p>
-      <br />
       <p>Biaya Pengantaran: [teks]</p>
-      <br />
       <p>Total Biaya: [teks]</p>
-      <br />
+    </div>
+    <div class="col mb-3 mx-5">
       <p>Jenis Pembayaran: RestoPay</p>
-      <p>Nama Pelanggan: [teks]</p>
-      <br /><br />
       <p>Status Pembayaran: [teks]</p>
-      <br />
       <p>Status Pesanan: [teks]</p>
-      <br /><br />
       <p>Kurir: [teks]</p>
-      <br />
       <p>Plat Kendaraan: [teks]</p>
-      <br />
       <p>Jenis Kendaraan: [teks]</p>
-      <br />
+      <p>Merk Kendaraan: [teks]</p>
+
+      <p>Kurir: [teks]</p>
+      <p>Plat Kendaraan: [teks]</p>
+      <p>Jenis Kendaraan: [teks]</p>
       <p>Merk Kendaraan: [teks]</p>
       <br />
+      <a href="{% url 'rpesanan-index' %}" class="btn btn-primary">Kembali</a>
     </div>
   </div>
 </div>
-{% endblock %}
