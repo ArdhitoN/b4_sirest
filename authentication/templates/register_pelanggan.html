@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <div>
+        <h2>FORM REGISTRASI PELANGGAN</h2>
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div>
+            <span>Email:</span>
+            <span><input type="text"></span>
+        </div>
+        <div>
+            <span>Password:</span>
+            <span><input type="password"></span>
+        </div>
+        <div>
+            <span>Name:</span>
+            <span><input type="text"></span>
+        </div>
+        <div>
+            <span>Nomor HP:</span>
+            <span><input type="text"></span>
+        </div>
+        <div>
+            <span>NIK:</span>
+            <span><input type="text"></span>
+        </div>
+        <div>
+            <span>Nama Bank:</span>
+            <span><input type="text"></span>
+        </div>
+        <div>
+            <span>Nomor rekening:</span>
+            <span><input type="text"></span>
+        </div>
+        <div>
+            <span>Tanggal Lahir:</span>
+            <span><input type="date"></span>
+        </div>
+        <div>
+            <span>Jenis Kelamin:</span>
+            <span><select name="" id="">
+                <option value="L">Laki-Laki</option>
+                <option value="P">Perempuan</option>
+            </select></span>
+        </div>
+        <button type="submit">Daftar</button>
+    </form>
+</div>
+{% endblock content %}
