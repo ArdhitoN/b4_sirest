@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<title>Buat Makanan</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
+{% endblock meta %}
+
+{% block content %}
+
+<div class="text-center">
+
+  <h1>Form Buat Makanan</h1>
+  <hr>
+</div>
+
+
+<form  method="POST">
+  {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="namaMakanan" class="form-label" >Nama makanan: </label>
+      <input type="text" class="form-control" id="namaMakanan" name="namaMakanan">
+      <div id="namaMakananHelp" class="form-text"></div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="Deskripsi" class="form-label">Deskripsi: </label>
+      <input type="text" class="form-control" id="Deskripsi" name="Deskripsi">
+    </div>
+
+        
+    <div class="mb-3">
+      <label for="Stok" class="form-label">Stok: </label>
+      <input type="number" class="form-control" id="Stok" name="Stok">
+    </div>
+
+    <div class="mb-3">
+      <label for="Harga" class="form-label">Harga: </label>
+      <input type="number" class="form-control" id="Harga" name="Harga">
+    </div>
+  
+    
+    <div class="mb-3">
+      <label for="Harga" class="form-label">Kategori Makanan: </label>
+      <select class="form-select" aria-label="Default select example">
+        <option selected></option>
+        <option value="1">Seafood</option>
+        <option value="2">Aneka Gorengan&Rebus</option>
+        <option value="3">Sayur Mayur</option>
+        <option value="4">Cemilan</option>
+        <option value="5">Beverages</option>
+      </select>
+    </div>
+    
+    
+    <div class="mb-3 bahanMakanan-add" id="bahanMakanan-add">
+      <label for="Harga" class="form-label">Bahan Makanan: </label>
+      <select class="form-select" aria-label="Default select example">
+        <option selected></option>
+        <option value="1">Strawberry</option>
+        <option value="2">Apple</option>
+        <option value="3">Rice</option>
+        <option value="4">Butter</option>
+        <option value="5">Chicken</option>
+        <option value="6">Beef</option>
+        <option value="7">Fish</option>
+      </select>
+    </div>
+
+    <input type="submit" onclick="refresh()" value="+">    
+
+    <br>
+    
+    
+    <button type="submit" class="btn btn-primary">Simpan</button>
+
+</form>
+
+
+
+<script>
+
+  function refresh() {
+      
+        // const todo = await getTodo();
+        // console.log("TESSSSSSSS" + " " + todo);
+        let htmlString = document.getElementById("bahanMakanan-add").innerHTML;
+        htmlString += `\n
+          <div class="mb-3">
+            <label for="Harga" class="form-label">Bahan Makanan: </label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected></option>
+              <option value="1">Strawberry</option>
+              <option value="2">Apple</option>
+              <option value="3">Rice</option>
+              <option value="4">Butter</option>
+              <option value="5">Chicken</option>
+              <option value="6">Beef</option>
+              <option value="7">Fish</option>
+            </select>
+          </div>
+          `;
+        document.getElementById("bahanMakanan-add").innerHTML += htmlString;
+  }
+
+  // function addTodo() {
+  //   console.log("TES")
+
+  //         method: "POST",
+  //         body: new FormData(document.querySelector('#form'))
+  //     }).then(refreshTodolist)
+  //   return false
+  // }
+
+  // function deleteTodo(todoPK) {
+  //   console.log("TESzzz")
+  //   fetch(`/todolist/delete/${todoPK}`, {
+  //     method: "GET",
+  //     }
+  //     ).then(refreshTodolist)
+  //   return false
+  // }
+
+
+  // refresh();
+  </script>
+
+{% endblock content %}

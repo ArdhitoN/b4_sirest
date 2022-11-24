@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block meta %}
+<title>Daftar Makanan</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
+{% endblock meta %}
+
+
+
+{% block content %}
+
+<div class="text-center">
+
+  <h1 >Daftar Makanan</h1>
+</div>
+
+
+<table class="table table-bordered">
+        
+        <thead>
+          <td>No</td>
+          <td>Nama Makanan</td>
+          <td>Deskripsi</td>
+          <td>Stok</td>
+          <td>Harga</td>
+          <td>Kategori Makanan</td>
+          <td>Bahan Makanan</td>
+          <td>Aksi</td>
+        </thead>
+
+        <tbody>
+          <tr class="">
+            <td>1</td>
+            <td>Roti Bakar Coklat Keju</td>
+            <td>Roti dengan isian coklat dan keju yang dibakar</td>
+            <td>10</td>
+            <td>8000</td>
+            <td>Snack</td>
+            <td>Roti, Mentega, Coklat, Keju</td>
+            <td>
+              <a href="{% url 'Makanan:show_ubah_makanan' %}">Ubah</a>
+              <br>
+              <a href="{% url 'Makanan:hapus_makanan' %}">Hapus</a>
+            </td>
+          </tr>
+
+          <tr class="">
+            <td>2</td>
+            <td>Milkshake Vanilla</td>
+            <td>Milkshake rasa vanilla dengan topping es krim</td>
+            <td>5</td>
+            <td>7000</td>
+            <td>Minuman</td>
+            <td>Susu, Es Krim, Gula</td>
+            <td>
+              <a href="{% url 'Makanan:show_ubah_makanan' %}">Ubah</a>
+              <br>
+              <a href="{% url 'Makanan:hapus_makanan' %}">Hapus</a>
+            </td>
+          </tr>
+          
+        </tbody>
+
+  </table>
+
+{% endblock content %}
