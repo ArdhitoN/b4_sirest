@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% include 'navbarPelanggan.html' %}
 <div>
     <div>
         <form method="POST" action="">
@@ -10,7 +11,7 @@
                 <span>Nama Kategori Makanan</span>
                 <span><input type="text" name="kategori" id=""></span>
             </div>
-            <div><button>Simpan</button></div>
+            <div><button type="submit">Simpan</button></div>
         </form>
     </div>
     {% if messages %}  

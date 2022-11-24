@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% include 'navbarPelanggan.html' %}
 <div>
     <div>
         <table class = "table bordered-table">
@@ -9,6 +10,17 @@
                 <th>Nama Kategori Makanan</th>
                 <th>Aksi</th>
             </tr>
+            <tr>
+                <td>1</td>
+                <td>Snack</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Minuman</td>
+                <td><button><a href="{% url 'kategori_makanan:delete_kategori_makanan'%}">Hapus</a></button></td>
+            </tr>
+            {% comment %}
             {% for kategori in kategori_makanan %}
             <tr>
                 <th>{{forloop.counter}}</th>
@@ -16,6 +28,7 @@
                 <th><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.pk%}">Hapus</a></button></th>
             </tr>
             {% endfor %}
+            {% endcomment %}
         </table>
     </div>
 </div>

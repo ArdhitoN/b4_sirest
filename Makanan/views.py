@@ -54,6 +54,43 @@ def show_makanan_nonRestoView(request):
     return render(request, "daftarMakanan_nonRestoView.html", context)
 
 
+def show_makanan_AView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftarMakanan_AView.html", context)
+
+
+
+
+def show_makanan_KView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftarMakanan_KView.html", context)
+
+    
+
+def show_makanan_PView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftarMakanan_PView.html", context)
+
+
+
 def show_detail_resto(request):
     current_user = auth.get_user(request)
 
@@ -64,6 +101,44 @@ def show_detail_resto(request):
     context = {}
     return render(request, "detail_resto.html", context)
 
+
+
+def show_detail_resto_AView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "detail_resto_AView.html", context)
+
+
+def show_detail_resto_KView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "detail_resto_KView.html", context)
+
+
+
+def show_detail_resto_PView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "detail_resto_PView.html", context)
+
+
+
+
 def show_daftar_restoran(request):
     current_user = auth.get_user(request)
 
@@ -73,6 +148,39 @@ def show_daftar_restoran(request):
 
     context = {}
     return render(request, "daftar_restoran.html", context)
+
+
+def show_daftar_restoran_AView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftar_restoran_AView.html", context)
+
+
+def show_daftar_restoran_KView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftar_restoran_KView.html", context)
+
+def show_daftar_restoran_PView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftar_restoran_PView.html", context)
+
 
 
 def show_ubah_makanan(request):

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbarPelanggan.html' %}
+<div>
+    <div>Daftar Pesanan</div>
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <table class="table bordered-table">
+                <tr>
+                    <th>No</th>
+                    <th>Nama Makanan</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Ayam Goreng</td>
+                    <td>5000</td>
+                    <td>1</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Ice Cream</td>
+                    <td>3000</td>
+                    <td>2</td>
+                    <td>6000</td>
+
+                </tr>
+            </table>
+            <div>Total Harga: 11000</div>
+            <div>
+                <span>Metode Pengantaran: Motor</span>
+                <br>
+                <span>Metode Pembayaran: RestoPay</span>
+            </div>
+            <div>
+                <div>Total Diskon: 0</div>
+                <div>Biaya Pengantaran: 4000</div>
+                <div>Total Biaya: 15000</div>
+            </div>
+            <button type="Submit">Lanjut Ke Pembayaran</button>
+        </form>
+    </div>
+    {% if messages %}  
+        <div>   
+            {% for message in messages %}  
+                <div>{{ message }}</div>  
+                {% endfor %}  
+        </div>   
+    {% endif %}
+</div>
+{% endblock content %}
