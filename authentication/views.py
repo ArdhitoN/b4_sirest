@@ -40,3 +40,9 @@ def show_register_kurir(request):
 
     context = {}
     return render(request, "register_kurir.html", context)
+
+def show_register_admin(request):
+    return render(request, "register_admin.html")
+
+def show_register_pelanggan(request):
+    return render(request, "register_pelanggan.html")
