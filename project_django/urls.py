@@ -26,6 +26,7 @@ urlpatterns = [
     path('kategori_makanan/', include('kategori_makanan.urls')),
     path('tarifPengiriman/', include('tarifPengiriman.urls')),
     path('Makanan/', include('Makanan.urls')),
+    path('authentication/', include('authentication.urls')),
     
 ]
 
