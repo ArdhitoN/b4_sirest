@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Kategori Makanan</h2>
+<div>
+    <div>
+        <table class = "table bordered-table">
+            <tr>
+                <th>No</th>
+                <th>Nama Kategori Makanan</th>
+                <th>Aksi</th>
+            </tr>
+            {% for kategori in kategori_makanan %}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th>{{kategori.name}}</th>
+                <th><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.pk%}">Hapus</a></button></th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 {% endblock content %}
