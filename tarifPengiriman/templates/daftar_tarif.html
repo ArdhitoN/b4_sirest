@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block meta %}
+<title>Daftar Tarif</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
+{% endblock meta %}
+
+
+
+{% block content %}
+
+<div class="text-center">
+
+  <h1 >Daftar Tarif Pengiriman</h1>
+</div>
+
+
+<table class="table table-bordered">
+        
+        <thead>
+          <td>No</td>
+          <td>Provinsi</td>
+          <td>Biaya Motor</td>
+          <td>Biaya Mobil</td>
+          <td>Aksi</td>
+        </thead>
+
+        <tbody>
+          <tr class="">
+            <td>1</td>
+            <td>DKI Jakarta</td>
+            <td>5000</td>
+            <td>7000</td>
+            <td>
+              <a href="{% url 'tarifPengiriman:show_update_tarif' %}">Ubah</a>
+              <br>
+              <a href="{% url 'tarifPengiriman:hapus_tarif' %}">Hapus</a>
+            </td>
+          </tr>
+
+          <tr class="">
+            <td>2</td>
+            <td>Jawa Barat</td>
+            <td>6000</td>
+            <td>7000</td>
+            <td>
+              <a href="{% url 'tarifPengiriman:show_update_tarif' %}">Ubah</a>
+              <br>
+              <a href="{% url 'tarifPengiriman:hapus_tarif' %}">Hapus</a>
+            </td>
+          </tr>
+
+          <tr class="">
+            <td>3</td>
+            <td>Papua</td>
+            <td>6000</td>
+            <td>6800</td>
+            <td>
+              <a href="{% url 'tarifPengiriman:show_update_tarif' %}">Ubah</a>
+              <br>
+              <a href="{% url 'tarifPengiriman:hapus_tarif' %}">Hapus</a>
+            </td>
+          </tr>
+          
+        </tbody>
+
+  </table>
+
+{% endblock content %}
