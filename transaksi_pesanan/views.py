@@ -9,7 +9,8 @@ def p_detail(response):
     return render(response, 'pesanan_detail.html')
 
 def tambah_transaksi(request):
-    return render(request, 'tambah_pesanan.html')
+    context = {"form":FormAlamat()}
+    return render(request, 'tambah_pesanan.html', context)
 
 def pilih_restoran(request):
     return render(request, "pilih_restoran.html")
