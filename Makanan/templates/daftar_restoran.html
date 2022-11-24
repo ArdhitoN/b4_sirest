@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block meta %}
+<title>Daftar Restoran</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
+{% endblock meta %}
+
+
+
+{% block content %}
+
+<div class="text-center">
+
+  <h1 >Daftar Restoran</h1>
+</div>
+
+
+<table class="table table-bordered">
+        
+        <thead>
+          <td>No</td>
+          <td>Nama - Cabang Restoran</td>
+          <td>Rating</td>
+          <td>Aksi</td>
+        </thead>
+
+        <tbody>
+          <tr class="">
+            <td>1</td>
+            <td>McDonald’s Depok</td>
+            <td>4.7</td>
+            <td>
+              <a href="{% url 'Makanan:show_detail_resto' %}">Detail</a>
+              <br>
+              <a href="{% url 'Makanan:show_makanan_nonRestoView' %}">Menu</a>
+            </td>
+          </tr>
+
+          <tr class="">
+            <td>2</td>
+            <td>KFC Depok</td>
+            <td>4.3</td>
+            <td>
+              <a href="{% url 'Makanan:show_detail_resto' %}">Detail</a>
+              <br>
+              <a href="{% url 'Makanan:show_makanan_nonRestoView' %}">Menu</a>
+            </td>
+          </tr>
+
+        </tbody>
+
+  </table>
+
+{% endblock content %}

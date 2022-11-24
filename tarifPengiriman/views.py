@@ -30,3 +30,29 @@ def show_buat_tarif(request):
 
     context = {}
     return render(request, "buat_tarif.html", context)
+
+
+def show_daftar_tarif(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftar_tarif.html", context)
+
+
+def show_update_tarif(request):
+    current_user = auth.get_user(request)
+
+
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "update_tarif.html", context)
+
+def hapus_tarif(request):
+
+    return

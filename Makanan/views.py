@@ -21,7 +21,7 @@ from django.utils.decorators import method_decorator
 
 
 # Create your views here.
-def show_makanan(request):
+def show_buat_makanan(request):
     current_user = auth.get_user(request)
 
     
@@ -29,4 +29,66 @@ def show_makanan(request):
     #     return redirect('authentication:login')
 
     context = {}
-    return render(request, "Makanan.html", context)
+    return render(request, "buat_makanan.html", context)
+
+
+def show_makanan_restoView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftarMakanan_restoView.html", context)
+
+
+def show_makanan_nonRestoView(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftarMakanan_nonRestoView.html", context)
+
+
+def show_detail_resto(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "detail_resto.html", context)
+
+def show_daftar_restoran(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "daftar_restoran.html", context)
+
+
+def show_ubah_makanan(request):
+    current_user = auth.get_user(request)
+
+    
+    # if(not current_user.is_admin):
+    #     return redirect('authentication:login')
+
+    context = {}
+    return render(request, "ubah_makanan.html", context)
+
+def hapus_makanan(request):
+    current_user = auth.get_user(request)
+
+
+    return
+
+    

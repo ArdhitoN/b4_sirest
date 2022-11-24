@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+<title>Buat Makanan</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+/* 
+.div-inline{
+  display:inline-block;
+} */
+</style>
+{% endblock meta %}
+
+{% block content %}
+
+<div class="text-center">
+
+  <h1>Form Buat Makanan</h1>
+  <hr>
+</div>
+
+
+<form  method="POST">
+  {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="namaMakanan" class="form-label" >Nama makanan: </label>
+      <input type="text" class="form-control" id="namaMakanan" name="namaMakanan" disabled value="Ayam goreng">
+      <div id="namaMakananHelp" class="form-text"></div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="Deskripsi" class="form-label">Deskripsi: </label>
+      <input type="text" class="form-control" id="Deskripsi" name="Deskripsi" value="Enak">
+    </div>
+
+        
+    <div class="mb-3">
+      <label for="Stok" class="form-label">Stok: </label>
+      <input type="number" class="form-control" id="Stok" name="Stok" value="5">
+    </div>
+
+    <div class="mb-3">
+      <label for="Harga" class="form-label">Harga: </label>
+      <input type="number" class="form-control" id="Harga" name="Harga" value="10000">
+    </div>
+  
+    
+    <div class="mb-3">
+      <label for="Harga" class="form-label">Kategori Makanan: </label>
+      <select class="form-select" aria-label="Default select example">
+        <option selected></option>
+        <option value="1" >Seafood</option>
+        <option value="2">Aneka Gorengan&Rebus</option>
+        <option value="3">Sayur Mayur</option>
+        <option value="4" selected>Cemilan</option>
+        <option value="5">Beverages</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="Harga" class="form-label">Bahan Makanan: </label>
+      <div class="div-inline d-inline-block d-flex flex-row">
+        <div class="mb-3" >
+          <select class="form-select" aria-label="Default select example">
+            <option  ></option>
+            <option value="1">Strawberry</option>
+            <option value="2" selected>Apple</option>
+            <option value="3">Rice</option>
+            <option value="4">Butter</option>
+            <option value="5">Chicken</option>
+            <option value="6">Beef</option>
+            <option value="7">Fish</option>
+          </select>
+        </div>
+        <button> - </button>
+      </div>
+    </div>
+    <button> + </button>
+
+    <br>
+    
+
+    <br>
+
+    <button type="submit" class="btn btn-primary">Simpan</button>
+
+</form>
+
+{% endblock content %}

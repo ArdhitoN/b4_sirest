@@ -4,9 +4,21 @@
 
 {% block meta %}
 <title>Buat Tarif</title>
+<style>
+  *{
+    margin: 5px;
+
+  }
+</style>
 {% endblock meta %}
 
 {% block content %}
+
+<div class="text-center">
+
+  <h1 >Buat Tarif Pengiriman</h1>
+</div>
+
 
 <form  method="POST">
   {% csrf_token %}
