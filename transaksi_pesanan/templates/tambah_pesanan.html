@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+{% include 'navbarPelanggan.html' %}
+<div>
+    <div>
+        <h2>FORM PENGISIAN ALAMAT PEMESANAN MAKANAN</h2>
+    </div>
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div>
+                <span>Jalan: </span>
+                <span>{{form.street}}</span>
+            </div>
+            <div>
+                <span>Kecamatan: </span>
+                <span>{{form.district}}</span>
+            </div>
+            <div>
+                <span>Kota: </span>
+                <span>{{form.city}}</span>
+            </div>
+            <div>
+                <span>Provinsi: </span>
+                <span>{{form.province}}</span>
+            </div>
+            <button type="submit">Lanjut</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
