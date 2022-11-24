@@ -1,7 +1,15 @@
 from django.urls import path
-from . import views
+from transaksi_pesanan.views import *
 
 urlpatterns = [
-    path('', views.p_berlangsung, name='rpesanan-index'),
-    path('detail/', views.p_detail, name='rpesanan-detail'),
+    path('', p_berlangsung, name='rpesanan-index'),
+    path('detail/', p_detail, name='rpesanan-detail'),
+    path('tambah/', tambah_transaksi, name="tambah_transaksi"),
+    path('pilih_restoran/', pilih_restoran, name="pilih_restoran"),
+    path('pilih_makanan/', pilih_makanan, name="pilih_makanan"),
+    path('daftar_pesanan_pelanggan/', daftar_pesanan_pelanggan, name="daftar_pesanan_pelanggan"),
+    path('konfirmasi_pembayaran/', konfirmasi_pembayaran, name='konfirmasi_pembayaran'),
+    path('ringkasan_pesanan/', ringkasan_pesanan, name='ringkasan_pesanan'),
+    path('pesanan_berlangsung_pelanggan/', pesanan_berlangsung_pelanggan, name='pesanan_berlangsung_pelanggan'),
+    path('detail_pesanan_pelanggan/', detail_pesanan_pelanggan, name='detail_pesanan_pelanggan'),
 ]

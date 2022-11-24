@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbarPelanggan.html' %}
+<div>
+    <div>Pilih Makanan</div>
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <table class="table bordered-table">
+                <tr>
+                    <th>No</th>
+                    <th>Nama Makanan</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Catatan (Opsional)</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Ayam Goreng</td>
+                    <td>5000</td>
+                    <td><button>-</button><span>1</span><button>+</button></td>
+                    <td><Button>Tambah Catatan</Button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Ice Cream</td>
+                    <td>3000</td>
+                    <td><button>-</button><span>2</span><button>+</button></td>
+                    <td><Button>Tambah Catatan</Button></td>
+
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Ikan Bakar</td>
+                    <td>5000</td>
+                    <td><button>-</button><span>0</span><button>+</button></td>
+                    <td></td>
+                </tr> 
+            </table>
+            <div>
+                <h4>Pilih Metode Pembayaran dan Pengantaran</h4>
+            </div>
+            <div>
+                <span>Metode Pengantaran</span>
+                <span><select name="metode-antar" id="">
+                    <option value="Motor">Motor</option>
+                    <option value="Mobil">Mobil</option>
+                </select></span>
+                <br>
+                <span>Metode Pembayaran</span>
+                <span><select name="metode-bayar" id="">
+                    <option value="RestoPay">RestoPay</option>
+                    <option value="Placeholder">Placeholder</option>
+                </select></span>
+            </div>
+            <button type="Submit">Pesan</button>
+        </form>
+    </div>
+    {% if messages %}  
+        <div>   
+            {% for message in messages %}  
+                <div>{{ message }}</div>  
+                {% endfor %}  
+        </div>   
+    {% endif %}
+</div>
+{% endblock content %}
