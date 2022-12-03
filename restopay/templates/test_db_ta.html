@@ -1,0 +1,13 @@
+{% include 'navbarPelanggan.html' %}
+<div class="container my-5 px-5">
+  <div class="row row-cols-1">
+    <div class="col text-center mb-2">
+      <h4>Restopay</h4>
+    </div>
+    <ol>
+      {% for actor in actors %}
+      <li>{{ actor.email }} : {{ actor.restopay }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
