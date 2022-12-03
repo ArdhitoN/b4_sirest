@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.index, name='restopay-index'),
     path('isi/', views.isi, name='restopay-isi'),
     path('tarik/', views.tarik, name='restopay-tarik'),
+    path('all/', views.all_restopay, name='restopay-all'),
 ]
