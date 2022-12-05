@@ -9,7 +9,5 @@ from .views import *
 app_name = 'Makanan'
 
 urlpatterns = [
-    path('CreatePromoRestoran/', show_makanan, name='show_makanan'),
-
-
+    # path('CreatePromoRestoran/', show_makanan, name='show_makanan'),
 ]

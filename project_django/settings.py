@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'bahan_makanan',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -156,4 +158,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'authentication.User'
+# AUTH_USER_MODEL = 'authentication.User'
