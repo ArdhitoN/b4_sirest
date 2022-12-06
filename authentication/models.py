@@ -16,7 +16,6 @@ from django.db import connection
 class UserAcc:
 
     def __init__(self, email, password, phonenum, fname, lname):
-
         self.email = email
         self.password = password
         self.phonenum = phonenum
@@ -29,7 +28,6 @@ class UserAcc:
 class UserAccRepository:
 
     def getByEmailPassword(self, email, password):
-
             cursor = connection.cursor()
             query = f"""SELECT * FROM user_acc WHERE email = \'{email}\' AND password = \'{password}\';"""
             cursor.execute(query)
@@ -43,7 +41,6 @@ class UserAccRepository:
                 print("Error at getbyemailpassword")
     
     def isUserExist(self, email, password):
-
             cursor = connection.cursor()
             query = f"""SELECT * FROM user_acc WHERE email = \'{email}\' AND password = \'{password}\';"""
             cursor.execute(query)
@@ -67,17 +64,37 @@ class UserAccRepository:
                 """
         cursor.execute(query)
         row = cursor.fetchone()
-        
+
         if row is not None:
             return True
         else:
             print("none: admin")
             return False
+    
+    def isCustomer(self, email):
+        # setelah check is user exist
+        cursor = connection.cursor()
+        query = f"""SELECT * FROM user_acc U
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM TRANSACTION_ACTOR TA
+                        JOIN CUSTOMER C ON TA.email = C.email
+                        AND U.email = TA.email
+                        AND U.email = \'{email}\'
+                    );
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
 
+        if row is not None:
+            return True
+        else:
+            print("none: customer")
+            return False
+        
 class TransactionActor:
 
     def __init__(self, email, nik, bankname, accountno, restopay, adminid):
-
         self.email = email
         self.nik = nik
         self.bankname = bankname
@@ -87,3 +104,38 @@ class TransactionActor:
     
     def __str__(self):
         return f"Ta Email: {self.email} Password: {self.email}"
+
+class TransactionActorRepository:
+
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * from transaction_actor WHERE email = \'{email}\';
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        ta = TransactionActor(row[0], row[1], row[2], row[3], row[4], row[5])
+        print(row)
+        print(ta)
+        return ta
+
+class Customer:
+
+    def __init__(self, email, birthdate, sex):
+        self.email = email
+        self.birthdate = birthdate
+        self.sex = sex
+
+class CustomerRepository:
+
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM customer WHERE email = \'{email}\';
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        customer = Customer(row[0], row[1], row[2])
+        print(row)
+        print(customer)
+        return customer

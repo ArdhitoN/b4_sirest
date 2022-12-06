@@ -15,5 +15,6 @@ urlpatterns = [
     path('login-request/', login_ua, name='login_request'),
     path("login-after/", afterlogin, name="logintest"),
     path("logged_admin/", after_login_admin, name="logged_admin"),
+    path("logged_customer/", after_login_customer, name="logged_customer"),
 
 ]

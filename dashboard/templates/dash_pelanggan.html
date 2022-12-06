@@ -9,24 +9,24 @@ Nomor rekening: [teks]
  -->
 <div class="container my-5 px-5">
   <div class="row row-cols-1">
-    <div class="col text-center mb-2">
-      <h4>Dashboard Pengguna: [nama lengkap pengguna]</h4>
+    <div class="col text-center mb-4">
+      <h4>Dashboard Pengguna: {{ user.fname }} {{ user.lname }}</h4>
     </div>
 
     <div class="col mb-3 mx-5">
-      <p>Email: [teks]</p>
-      <p>Password: [teks]</p>
-      <p>Nama: [teks]</p>
-      <p>Nomor HP: [teks]</p>
-      <p>NIK: [teks]</p>
-      <p>Nama bank: [teks]</p>
-      <p>Nomor rekening: [teks]</p>
+      <p>Email: {{ user.email }}</p>
+      <p>Password: {{ user.password }}</p>
+      <p>Nama: {{ user.fname }} {{ user.lname }}</p>
+      <p>Nomor HP: {{ user.phonenum }}</p>
+      <p>NIK: {{ actor.nik }}</p>
+      <p>Nama bank: {{ actor.bankname }}</p>
+      <p>Nomor rekening: {{ actor.accountno }}</p>
     </div>
     <div class="col mb-3 mx-5">
-      <p>Tanggal lahir: [teks]</p>
-      <p>Jenis Kelamin: [teks]</p>
+      <p>Tanggal lahir: {{ customer.birthdate }}</p>
+      <p>Jenis Kelamin: {{ customer.sex }}</p>
       <br />
-      <p>Status: [teks]</p>
+      <p>Status: {{ actor.adminid }}</p>
     </div>
   </div>
 </div>

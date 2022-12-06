@@ -58,7 +58,7 @@
 # def show_login(request):
 #     return render(request, 'login.html')
 from django.shortcuts import render, redirect
-from .models import UserAccRepository
+from .models import *
 from django.http import HttpResponse
 
 # def login_ua(request):
@@ -92,8 +92,12 @@ def login_ua(request):
             if uar.isAdmin(email):
                 # go to dashboard admin
                 request.session['role'] = 'admin'
-                print("isadmin")
+                print("from view = admin")
                 return redirect('/authentication/logged_admin/')
+            elif uar.isCustomer(email):
+                request.session['role'] = 'customer'
+                print("from view = cust")
+                return redirect('/authentication/logged_customer/')
             else:
                 return redirect('/authentication/login-after/')
         else:
@@ -103,8 +107,9 @@ def afterlogin(request):
     uar = UserAccRepository()
     user = uar.getByEmailPassword(request.session.get('user_email'), request.session.get('user_password'))
     print(user)
-    for key, value in request.session.items():
-        print('{} => {}'.format(key, value))
+    # test isi session
+    # for key, value in request.session.items():
+    #     print('{} => {}'.format(key, value))
     return render(request, 'test_page.html', {"user": user})
 
 def after_login_admin(request):
@@ -115,6 +120,23 @@ def after_login_admin(request):
     # for key, value in request.session.items():
     #     print('{} => {}'.format(key, value))
     return render(request, "Dashboard_Admin.html", {"user": user})
+
+def after_login_customer(request):
+    email_session = request.session.get('user_email')
+    password_session = request.session.get('user_password')
+
+    uar = UserAccRepository()
+    user = uar.getByEmailPassword(email_session, password_session)
+
+    tar = TransactionActorRepository()
+    ta = tar.getByEmail(email_session)
+
+    cr = CustomerRepository()
+    customer = cr.getByEmail(email_session)
+    # test isi session
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
+    return render(request, "dash_pelanggan.html", {"user": user, "actor": ta, "customer": customer})
 
 def show_login(request, user_not_exist = False):
     return render(request, 'login.html', {"user_not_exist": user_not_exist})
