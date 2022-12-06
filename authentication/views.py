@@ -61,21 +61,8 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.http import HttpResponse
 
-# def login_ua(request):
-
-#     if request.method == "POST":
-
-#         email = request.POST["email"]
-#         password = request.POST["password"]
-#         uar = UserAccRepository()
-#         user_exist = uar.isUserExist(email, password)
-
-#         if user_exist:
-#             request.session['user_email'] = email
-#             request.session['user_password'] = password
-#             return redirect('/authentication/login-after/')
-#         else:
-#             return show_login(request, user_not_exist=True)
+def show_login(request, user_not_exist = False):
+    return render(request, 'login.html', {"user_not_exist": user_not_exist})
 
 def login_ua(request):
 
@@ -98,6 +85,10 @@ def login_ua(request):
                 request.session['role'] = 'customer'
                 print("from view = cust")
                 return redirect('/authentication/logged_customer/')
+            elif uar.isRestaurant(email):
+                request.session['role'] = 'restaurant'
+                print("from view = restaurant")
+                return redirect('/authentication/logged_restaurant/')
             else:
                 return redirect('/authentication/login-after/')
         else:
@@ -138,5 +129,20 @@ def after_login_customer(request):
         print('{} => {}'.format(key, value))
     return render(request, "dash_pelanggan.html", {"user": user, "actor": ta, "customer": customer})
 
-def show_login(request, user_not_exist = False):
-    return render(request, 'login.html', {"user_not_exist": user_not_exist})
+def after_login_restaurant(request):
+    email_session = request.session.get('user_email')
+    password_session = request.session.get('user_password')
+
+    uar = UserAccRepository()
+    user = uar.getByEmailPassword(email_session, password_session)
+
+    tar = TransactionActorRepository()
+    ta = tar.getByEmail(email_session)
+
+    rr = RestaurantRepository()
+    restaurant = rr.getByEmail(email_session)
+
+    # test isi session
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
+    return render(request, "dash_restoran.html", {"user": user, "actor": ta, "restaurant": restaurant})

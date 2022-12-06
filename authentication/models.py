@@ -91,6 +91,29 @@ class UserAccRepository:
         else:
             print("none: customer")
             return False
+    
+    def isRestaurant(self, email):
+        # setelah check is user exist
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM user_acc U
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM transaction_actor TA
+                        JOIN restaurant R ON TA.email = R.email
+                        AND U.email = TA.email
+                        AND U.email = \'{email}\'
+                    );
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+
+        if row is not None:
+            return True
+        else:
+            print("none: restaurant")
+            return False
+    
         
 class TransactionActor:
 
@@ -139,3 +162,30 @@ class CustomerRepository:
         print(row)
         print(customer)
         return customer
+
+class Restaurant:
+
+    def __init__(self, rname, rbranch, email, rphonenum, street, district, city, province, rating, rcategory):
+        self.rname = rname
+        self.rbranch = rbranch
+        self.email = email
+        self.rphonenum = rphonenum
+        self.street = street
+        self.district = district
+        self.city = city
+        self.province = province
+        self.rating = rating
+        self.rcategory = rcategory
+
+class RestaurantRepository:
+
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM restaurant WHERE email = \'{email}\';
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        restaurant = Restaurant(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+        print(row)
+        return restaurant
