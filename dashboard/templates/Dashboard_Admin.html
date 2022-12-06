@@ -1,14 +1,19 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<body>
-    <h1> Dasboard Pengguna : </h1>
-    <p> Email:  </p>
-    <p> Password:  </p>
-    <p>  Nama: [isian]</p>
-    <p>  Nomor HP: [isian]</p>
-
-     
-    
-</body>
+{% extends 'base.html' %} {% block content %} {% include 'navbarAdmin.html' %}
+<div class="container my-5 px-5"></div>
+<div class="container my-5 px-5">
+  <div class="row row-cols-1">
+    <div class="col text-center mb-2">
+      <h4>Dashboard Pengguna: {{ user.fname }} {{ user.lname }}</h4>
+    </div>
+    <div class="col mb-4">
+      <p>Email: {{ user.email }}</p>
+      <p>Password: {{ user.password }}</p>
+      <p>Nama: {{ user.fname }} {{ user.lname }}</p>
+      <p>Nomor HP: {{ user.phonenum }}</p>
+    </div>
+    <div class="col mb-4">
+      <!-- tinggal tabel transaksi aktor ya -->
+    </div>
+  </div>
+</div>
 {% endblock content %}
