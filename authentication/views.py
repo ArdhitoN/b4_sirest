@@ -61,18 +61,23 @@ from django.shortcuts import render, redirect
 from .models import UserAccRepository
 from django.http import HttpResponse
 
-# def login_ta(request):
+# def login_ua(request):
 
 #     if request.method == "POST":
 
 #         email = request.POST["email"]
 #         password = request.POST["password"]
 #         uar = UserAccRepository()
-#         ua = uar.getByEmailPassword(email, password)
-    
-#     return HttpResponse(f"{email},{password}")
+#         user_exist = uar.isUserExist(email, password)
 
-def login_ta(request):
+#         if user_exist:
+#             request.session['user_email'] = email
+#             request.session['user_password'] = password
+#             return redirect('/authentication/login-after/')
+#         else:
+#             return show_login(request, user_not_exist=True)
+
+def login_ua(request):
 
     if request.method == "POST":
 
@@ -84,7 +89,13 @@ def login_ta(request):
         if user_exist:
             request.session['user_email'] = email
             request.session['user_password'] = password
-            return redirect('/authentication/login-after/')
+            if uar.isAdmin(email):
+                # go to dashboard admin
+                request.session['role'] = 'admin'
+                print("isadmin")
+                return redirect('/authentication/logged_admin/')
+            else:
+                return redirect('/authentication/login-after/')
         else:
             return show_login(request, user_not_exist=True)
 
@@ -95,6 +106,15 @@ def afterlogin(request):
     for key, value in request.session.items():
         print('{} => {}'.format(key, value))
     return render(request, 'test_page.html', {"user": user})
+
+def after_login_admin(request):
+    uar = UserAccRepository()
+    user = uar.getByEmailPassword(request.session.get('user_email'), request.session.get('user_password'))
+    print(user)
+    # test isi session
+    # for key, value in request.session.items():
+    #     print('{} => {}'.format(key, value))
+    return render(request, "Dashboard_Admin.html", {"user": user})
 
 def show_login(request, user_not_exist = False):
     return render(request, 'login.html', {"user_not_exist": user_not_exist})

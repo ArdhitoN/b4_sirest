@@ -40,8 +40,7 @@ class UserAccRepository:
                 print(row)
                 return useracc
             except Exception as e:
-                print("masuk e di getbyemailpassword")
-                print(row)
+                print("Error at getbyemailpassword")
     
     def isUserExist(self, email, password):
 
@@ -49,14 +48,31 @@ class UserAccRepository:
             query = f"""SELECT * FROM user_acc WHERE email = \'{email}\' AND password = \'{password}\';"""
             cursor.execute(query)
             row = cursor.fetchone()
-            try:
-                useracc = UserAcc(row[0], row[1], row[2], row[3], row[4])
-                print(row)
+
+            if row is not None:
                 return True
-            except Exception as e:
-                print("masuk e di isuserexist")
-                print(row)
+            else:
+                print("none: isuserexist")
                 return False
+    
+    def isAdmin(self, email):
+        # setelah check isUserExist
+        cursor = connection.cursor()
+        query = f"""SELECT * FROM user_acc U
+                    WHERE EXISTS (
+                    SELECT 1
+                    FROM admin A
+                    WHERE A.email = \'{email}\' AND U.email = A.email
+                    );;
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        
+        if row is not None:
+            return True
+        else:
+            print("none: admin")
+            return False
 
 class TransactionActor:
 

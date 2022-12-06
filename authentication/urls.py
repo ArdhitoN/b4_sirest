@@ -12,7 +12,8 @@ urlpatterns = [
     # path("register-kurir/", show_register_kurir, name="show_register_kurir"),
     # path("login_register/", show_login_register, name="show_login_register"),
     path("login/", show_login, name="show_login"),
-    path('login-request/', login_ta, name='login_request'),
+    path('login-request/', login_ua, name='login_request'),
     path("login-after/", afterlogin, name="logintest"),
+    path("logged_admin/", after_login_admin, name="logged_admin"),
 
 ]
