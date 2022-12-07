@@ -27,6 +27,7 @@ class UserAcc:
 
 class UserAccRepository:
 
+    # get by email only
     def getByEmailPassword(self, email, password):
             cursor = connection.cursor()
             query = f"""SELECT * FROM user_acc WHERE email = \'{email}\' AND password = \'{password}\';"""
@@ -39,6 +40,19 @@ class UserAccRepository:
                 return useracc
             except Exception as e:
                 print("Error at getbyemailpassword")
+    
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        query = f"""SELECT * FROM user_acc WHERE email = \'{email}\';"""
+        cursor.execute(query)
+        row = cursor.fetchone()
+        try:
+            useracc = UserAcc(row[0], row[1], row[2], row[3], row[4])
+            print(useracc)
+            print(row)
+            return useracc
+        except Exception as e:
+            print("Error at getbyemailpassword")
     
     def isUserExist(self, email, password):
             cursor = connection.cursor()

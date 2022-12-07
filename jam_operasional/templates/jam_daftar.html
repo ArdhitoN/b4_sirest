@@ -16,26 +16,18 @@
           </tr>
         </thead>
         <tbody>
+          {% for hour in restaurant.operating_hours %}
           <tr>
-            <th scope="row">1</th>
-            <td>Senin</td>
-            <td>08:00:00</td>
-            <td>21:00:00</td>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ hour.day }}</td>
+            <td>{{ hour.starthours }}</td>
+            <td>{{ hour.endhours }}</td>
             <td>
-              <a href="{% url 'jam-buat' %}" class="btn btn-primary">Ubah</a>
-              <a href="{% url 'jam-buat' %}" class="btn btn-danger">Hapus</a>
+              <a href="{% url 'jam_buat' %}" class="btn btn-primary">Ubah</a>
+              <a href="{% url 'jam_ubah' %}" class="btn btn-danger">Hapus</a>
             </td>
           </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>Rabu</td>
-            <td>10:00:00</td>
-            <td>23:00:00</td>
-            <td>
-              <a href="{% url 'jam-buat' %}" class="btn btn-primary">Ubah</a>
-              <a href="{% url 'jam-buat' %}" class="btn btn-danger">Hapus</a>
-            </td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

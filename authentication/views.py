@@ -58,7 +58,7 @@
 # def show_login(request):
 #     return render(request, 'login.html')
 from django.shortcuts import render, redirect
-from .models import *
+from .models import UserAccRepository, TransactionActorRepository, RestaurantRepository, CustomerRepository
 from django.http import HttpResponse
 
 def show_login(request, user_not_exist = False):
@@ -75,7 +75,6 @@ def login_ua(request):
 
         if user_exist:
             request.session['user_email'] = email
-            request.session['user_password'] = password
             if uar.isAdmin(email):
                 # go to dashboard admin
                 request.session['role'] = 'admin'
@@ -95,8 +94,9 @@ def login_ua(request):
             return show_login(request, user_not_exist=True)
 
 def afterlogin(request):
+    email = request.session.get('user_email')
     uar = UserAccRepository()
-    user = uar.getByEmailPassword(request.session.get('user_email'), request.session.get('user_password'))
+    user = uar.getByEmail(email)
     print(user)
     # test isi session
     # for key, value in request.session.items():
@@ -104,8 +104,9 @@ def afterlogin(request):
     return render(request, 'test_page.html', {"user": user})
 
 def after_login_admin(request):
+    email = request.session.get('user_email')
     uar = UserAccRepository()
-    user = uar.getByEmailPassword(request.session.get('user_email'), request.session.get('user_password'))
+    user = uar.getByEmail(email)
     print(user)
     # test isi session
     # for key, value in request.session.items():
@@ -113,36 +114,38 @@ def after_login_admin(request):
     return render(request, "Dashboard_Admin.html", {"user": user})
 
 def after_login_customer(request):
-    email_session = request.session.get('user_email')
-    password_session = request.session.get('user_password')
-
+    email = request.session.get('user_email')
     uar = UserAccRepository()
-    user = uar.getByEmailPassword(email_session, password_session)
+    user = uar.getByEmail(email)
 
     tar = TransactionActorRepository()
-    ta = tar.getByEmail(email_session)
+    ta = tar.getByEmail(email)
 
     cr = CustomerRepository()
-    customer = cr.getByEmail(email_session)
+    customer = cr.getByEmail(email)
     # test isi session
     for key, value in request.session.items():
         print('{} => {}'.format(key, value))
     return render(request, "dash_pelanggan.html", {"user": user, "actor": ta, "customer": customer})
 
 def after_login_restaurant(request):
-    email_session = request.session.get('user_email')
-    password_session = request.session.get('user_password')
-
+    email = request.session.get('user_email')
     uar = UserAccRepository()
-    user = uar.getByEmailPassword(email_session, password_session)
+    user = uar.getByEmail(email)
 
     tar = TransactionActorRepository()
-    ta = tar.getByEmail(email_session)
+    ta = tar.getByEmail(email)
 
     rr = RestaurantRepository()
-    restaurant = rr.getByEmail(email_session)
+    restaurant = rr.getByEmail(email)
 
     # test isi session
     for key, value in request.session.items():
         print('{} => {}'.format(key, value))
     return render(request, "dash_restoran.html", {"user": user, "actor": ta, "restaurant": restaurant})
+
+def logout(request):
+    request.session.pop('user_email')
+    request.session.pop('role')
+
+    return redirect("/authentication/login")

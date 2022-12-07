@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bahan_makanan',
 ]
 
+# to use session
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 
