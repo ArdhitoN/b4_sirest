@@ -1,27 +1,36 @@
-{% include 'navbarPelanggan.html' %} {% block content %}
-<form class="container my-5 px-5">
+{% include 'navbarPelanggan.html' %} {% if request.session.role == 'customer' %}
+{% include 'navbarPelanggan.html' %} {% elif request.session.role ==
+'restaurant' %} {% include 'navbarRestoran.html' %} {% elif request.session.role
+== 'kurir' %} {% include 'navbarKurir.html' %} {% endif %}
+<form
+  class="container my-5 px-5"
+  action="/restopay/tarik-request/"
+  method="POST"
+>
+  {% csrf_token %}
   <div class="row row-cols-1">
     <div class="col text-center mb-2">
       <h4>Form Tarik Saldo</h4>
     </div>
     <div class="col">
-      <h6>Saldo saat ini: [teks]</h6>
+      <h6>Saldo saat ini: {{ actor.restopay }}</h6>
       <label for="nominalPenarikan" class="form-label">Nominal Penarikan</label>
       <input
         type="text"
         class="form-control mb-3"
         id="nominalPenarikan"
+        name="nominalPenarikan"
+        value="{{ nominalPenarikan }}"
         required
       />
     </div>
     <div class="col">
       <h6>ke:</h6>
-      <h6>Nama Bank: [teks]</h6>
-      <h6>Nomor Rekening: [teks]</h6>
+      <h6>Nama Bank: {{ actor.bankname }}</h6>
+      <h6>Nomor Rekening: {{ actor.accountno }}</h6>
     </div>
     <div class="col text-center mt-5 mb-3">
       <button type="submit" class="btn btn-primary">Simpan</button>
     </div>
   </div>
 </form>
-{% endblock %}

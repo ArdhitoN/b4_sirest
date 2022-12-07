@@ -1,17 +1,22 @@
+{% if request.session.role == 'customer' %}
 {% include 'navbarPelanggan.html' %}
+{% elif request.session.role == 'restaurant' %}
+{% include 'navbarRestoran.html' %}
+{% elif request.session.role == 'kurir' %}
+{% include 'navbarKurir.html' %}
+{% endif %}
 <div class="container my-5 px-5">
   <div class="row row-cols-1">
     <div class="col text-center mb-2">
       <h4>Restopay</h4>
+      {% if fail_tarik %}
+      <h6>Saldo kurang untuk penarikan</h6>
+      {% endif %}
     </div>
     <div class="col">
-      <h6>Saldo: [teks]</h6>
-    </div>
-    <div class="col text-center mt-5 mb-3">
-      <button type="submit" class="btn btn-primary">Isi Saldo</button>
-    </div>
-    <div class="col text-center">
-      <button type="submit" class="btn btn-primary">Tarik Saldo</button>
+      <h6>Saldo: {{ actor.restopay }}</h6>
     </div>
   </div>
 </div>
+<a type="button" type="submit" class="btn btn-primary mx-5" href="/restopay/isi" >Isi Saldo</button><br>
+<a type="button" type="submit" class="btn btn-primary" href="/restopay/tarik">Tarik Saldo</button>

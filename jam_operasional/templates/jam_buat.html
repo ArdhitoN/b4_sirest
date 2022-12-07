@@ -1,29 +1,19 @@
-{% include 'navbarRestoran.html' %} {% block meta %}
-<!-- https://www.geeksforgeeks.org/how-to-set-bootstrap-timepicker-using-datetimepicker-library/ -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Include Moment.js CDN -->
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"
-></script>
-
-<!-- Include Bootstrap DateTimePicker CDN -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
-  rel="stylesheet"
-/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-{% endblock meta %}
-<form class="container my-5 px-5">
+{% include 'navbarRestoran.html' %} {% block meta %} {% endblock meta %}
+<form
+  class="container my-5 px-5"
+  action="/jam_operasional/buat_request/"
+  method="POST"
+>
+  {% csrf_token %}
   <div class="row row-cols-1">
     <div class="col text-center mb-3">
       <h4>Form Buat Jam Operasional</h4>
+      {% if fail_tarik %}
+        <h6>fail</h1>
+      {% endif %}
     </div>
     <div class="col mb-3">
-      <select class="form-select" id="inputGroupSelect01" required>
+      <select class="form-select" id="inputGroupSelect01" name="day" required>
         <option selected disabled>Pilih Hari Operasional</option>
         <option value="Senin">Senin</option>
         <option value="Selasa">Selasa</option>
@@ -37,13 +27,27 @@
     <div class="col mb-3">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Jam Buka</span>
-        <input class="form-control" type="text" id="jambuka" required />
+        <input
+          class="form-control"
+          type="time"
+          id="starthours"
+          name="starthours"
+          value="{{ starthours }}"
+          required
+        />
       </div>
     </div>
     <div class="col">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Jam Tutup</span>
-        <input class="form-control" type="text" id="jamtutup" required />
+        <input
+          class="form-control"
+          type="time"
+          id="endhours"
+          name="endhours"
+          value="{{ endhours }}"
+          required
+        />
       </div>
     </div>
     <div class="col text-center mt-3 mb-3">
@@ -51,14 +55,3 @@
     </div>
   </div>
 </form>
-<script>
-  // Below code sets format to the
-  // datetimepicker having id as
-  // datetime; prev, now trying jam buka
-  $("#jambuka").datetimepicker({
-    format: "hh:mm:ss a",
-  });
-  $("#jamtutup").datetimepicker({
-    format: "hh:mm:ss a",
-  });
-</script>
