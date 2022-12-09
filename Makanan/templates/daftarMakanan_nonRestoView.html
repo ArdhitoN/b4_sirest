@@ -4,6 +4,7 @@
 
 
 {% block meta %}
+
 <title>Daftar Makanan</title>
 <style>
   *{
@@ -16,6 +17,14 @@
 
 
 {% block content %}
+
+{% if request.session.role == 'admin' %}
+{% include 'navbarAdmin.html' %}
+{% elif request.session.role == 'customer' %}
+{% include 'navbarPelanggan.html' %}
+{% elif request.session.role == 'kurir' %}
+{% include 'navbarKurir.html' %}
+{% endif %}
 
 <div class="text-center">
 

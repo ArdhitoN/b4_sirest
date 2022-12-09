@@ -47,21 +47,7 @@ class TarifPengirimanRepository:
         # print(list_tarif_pengiriman)
 
         return list_tarif_pengiriman
-        
-
-
-    "Contoh Ambil satu object"
-    # def getByEmail(self, email):
-    #     cursor = connection.cursor()
-    #     query = f"""
-    #                 SELECT * from transaction_actor WHERE email = \'{email}\';
-    #             """
-    #     cursor.execute(query)
-    #     row = cursor.fetchone()
-    #     ta = TransactionActor(row[0], row[1], row[2], row[3], row[4], row[5])
-    #     print(row)
-    #     print(ta)
-    #     return ta
+    
 
 
     def updateTarifPengiriman(self, id, new_motorfee, new_carfee):
@@ -94,20 +80,3 @@ class TarifPengirimanRepository:
         cursor.execute(query)
         return True
             
-
-    # if 'user_email' not in request.session:
-    #     return redirect('/authentication/login')
-    # email = request.session.get('user_email')
-    # if request.method == "POST":
-
-    #     jumlahTarik = int(request.POST["nominalPenarikan"])
-    #     tar = TransactionActorRepository()
-    #     success = tar.reduceByEmail(email, jumlahTarik)
-
-    #     if success:
-    #         return redirect('/restopay/')
-    #     else:
-    #         return index(request, fail_tarik=True)
-
-
-
