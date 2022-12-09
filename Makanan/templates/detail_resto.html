@@ -14,6 +14,15 @@
 
 {% block content %}
 
+{% if request.session.role == 'admin' %}
+{% include 'navbarAdmin.html' %}
+{% elif request.session.role == 'customer' %}
+{% include 'navbarPelanggan.html' %}
+{% elif request.session.role == 'kurir' %}
+{% include 'navbarKurir.html' %}
+{% endif %}
+
+
 <div class="">
 
   <h1>Detail Restoran: [Nama - Cabang Restoran]</h1>
