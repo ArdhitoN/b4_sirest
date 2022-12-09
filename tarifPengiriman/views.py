@@ -57,7 +57,7 @@ def update_tarif(request, id, province):
         tarif_repo = TarifPengirimanRepository()
         queryResult = tarif_repo.updateTarifPengiriman(id, new_motorfee, new_carfee)
 
-    if queryResult:
+    if type(queryResult) == bool:
         return redirect('/tarifPengiriman/daftar_tarif/')
     else:
         return show_update_tarif(request, id, province, queryResult)

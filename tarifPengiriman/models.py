@@ -70,7 +70,7 @@ class TarifPengirimanRepository:
         query = f"""
                     UPDATE DELIVERY_FEE_PER_KM
                     SET motorfee= {new_motorfee}, carfee= {new_carfee} 
-                    WHERE id={id}
+                    WHERE id= '{id}'
                     ;    
                 """ 
         
@@ -87,7 +87,7 @@ class TarifPengirimanRepository:
         cursor = connection.cursor()
         query = f"""
                     DELETE FROM DELIVERY_FEE_PER_KM
-                    WHERE id='{id}'
+                    WHERE id= '{id}'
                     ;    
                 """ 
         
