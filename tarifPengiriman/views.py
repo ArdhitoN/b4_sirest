@@ -20,39 +20,53 @@ from django.core import serializers
 from django.utils.decorators import method_decorator
 
 
+from .models import *
+
 # Create your views here.
 def show_buat_tarif(request):
-    current_user = auth.get_user(request)
-
-    
-    # if(not current_user.is_admin):
-    #     return redirect('authentication:login')
 
     context = {}
     return render(request, "buat_tarif.html", context)
 
 
 def show_daftar_tarif(request):
-    current_user = auth.get_user(request)
 
+    tarif_repo = TarifPengirimanRepository()
+    list_tarif_pengiriman = tarif_repo.getAllTarifPengiriman()
     
-    # if(not current_user.is_admin):
-    #     return redirect('authentication:login')
 
-    context = {}
+    context = {'list_tarif_pengiriman' : list_tarif_pengiriman}
+
     return render(request, "daftar_tarif.html", context)
 
 
-def show_update_tarif(request):
-    current_user = auth.get_user(request)
+def show_update_tarif(request, id, province, msg=False):
 
-
-    # if(not current_user.is_admin):
-    #     return redirect('authentication:login')
-
-    context = {}
+    context = { 'id' : id, 
+                'province': province,
+                'error_msg': msg
+                }
     return render(request, "update_tarif.html", context)
 
-def hapus_tarif(request):
+def update_tarif(request, id, province):
 
-    return
+    if request.method == "POST":
+        new_motorfee = int(request.POST["motorfee"])
+        new_carfee = int(request.POST["carfee"])
+
+        tarif_repo = TarifPengirimanRepository()
+        queryResult = tarif_repo.updateTarifPengiriman(id, new_motorfee, new_carfee)
+
+    if queryResult:
+        return redirect('/tarifPengiriman/daftar_tarif/')
+    else:
+        return show_update_tarif(request, id, province, queryResult)
+
+
+def hapus_tarif(request, id):
+    if request.method == "POST":
+        tarif_repo = TarifPengirimanRepository()
+        
+        tarif_repo.hapusTarifPengiriman(id)
+
+        return redirect('/tarifPengiriman/daftar_tarif/')
