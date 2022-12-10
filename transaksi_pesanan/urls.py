@@ -1,10 +1,16 @@
 from django.urls import path
 from transaksi_pesanan.views import *
 
+app_name = 'transaksi_pesanan'
+
 urlpatterns = [
+    # Path Restoran
     path('', p_berlangsung, name='rpesanan-index'),
     path('detail/', p_detail, name='rpesanan-detail'),
+
+    # Path Pelanggan
     path('tambah/', tambah_transaksi, name="tambah_transaksi"),
+    path('pilih_alamat/', pilih_alamat, name="pilih_alamat"),
     path('pilih_restoran/', pilih_restoran, name="pilih_restoran"),
     path('pilih_makanan/', pilih_makanan, name="pilih_makanan"),
     path('daftar_pesanan_pelanggan/', daftar_pesanan_pelanggan, name="daftar_pesanan_pelanggan"),
