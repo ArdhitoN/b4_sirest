@@ -12,9 +12,13 @@
             </tr>
             {% for kategori in kategori_makanan %}
             <tr>
-                <th>{{forloop.counter}}</th>
-                <th>{{kategori.name}}</th>
-                <th><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.id%}">Hapus</a></button></th>
+                <td>{{forloop.counter}}</td>
+                <td>{{kategori.name}}</td>
+                {% if not kategori.used %}
+                <td><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.id%}">Hapus</a></button></td>
+                {% else %}
+                <td></td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
