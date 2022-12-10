@@ -3,6 +3,9 @@
   <div class="row row-cols-1">
     <div class="col text-center mb-3">
       <h4>Daftar Jam Operasional</h4>
+      {% if fail_delete %}
+        <h6>fail to delete jam</h1>
+      {% endif %}
     </div>
     <div class="col mb-3">
       <table class="table">
@@ -23,7 +26,9 @@
             <td>{{ hour.starthours }}</td>
             <td>{{ hour.endhours }}</td>
             <td>
-              <a href="{% url 'jam_ubah' %}" class="btn btn-primary">Ubah</a>
+              <a href="{% url 'jam_ubah' hour.day %}" class="btn btn-primary"
+                >Ubah</a
+              >
               <a
                 href="{% url 'jam_delete_op' hour.day %}"
                 class="btn btn-danger"

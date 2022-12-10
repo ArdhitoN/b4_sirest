@@ -41,5 +41,27 @@ def jam_delete_op(request, day):
     else:
         print('fail delete at views')
 
-def jam_ubah(request):
-    return render(request, 'jam_ubah.html')
+def jam_ubah(request, day, fail_ubah = False):
+    print("masuk jam_ubah")
+    email = request.session.get('user_email')
+    rr = RestaurantRepository()
+    hour = rr.getHour(email, day)
+    return render(request, 'jam_ubah.html', {"hour": hour, "fail_ubah": fail_ubah})
+
+def jam_ubah_op(request, day):
+    print("masuk jam_ubah_op")
+    email = request.session.get('user_email')
+    if request.method == "POST":
+        # get starthour
+        starthours = request.POST["starthours"]
+        print(starthours)
+        # get endhours
+        endhours = request.POST["endhours"]
+        print(endhours)
+        rr = RestaurantRepository()
+        success = rr.updateOperatingHours(email, day, starthours, endhours)
+        if success:
+            return redirect('/jam_operasional/daftar/')
+        else:
+            return jam_ubah(request, day, fail_ubah=True)
+    
