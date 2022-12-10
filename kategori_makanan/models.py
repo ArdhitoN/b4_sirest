@@ -4,6 +4,7 @@ class FoodCategory:
     def __init__(self, id, name):
         self.id = id
         self.name = name
+        self.used = False
 
 class FoodCategoryRepository:
     def get_all(self):
@@ -14,6 +15,22 @@ class FoodCategoryRepository:
         categories = []
         for row in rows:
             categories.append(FoodCategory(row[0], row[1]))
+
+        used_query = f"""
+        SELECT id FROM FOOD_CATEGORY
+        WHERE EXISTS (
+            SELECT FCategory FROM FOOD
+            WHERE FCategory = id);"""
+        cursor.execute(used_query)
+        rows = cursor.fetchall()
+        used_id = []
+        for row in rows:
+            used_id.append(row[0])
+            
+        for category in categories:
+            if category.id in used_id:
+                category.used = True
+                
         return categories
         
     def delete_category(self, id):
