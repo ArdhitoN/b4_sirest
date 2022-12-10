@@ -43,30 +43,42 @@
           <td>Kategori Makanan</td>
           <td>Bahan Makanan</td>
         </thead>
+        
 
+        <!-- self.RName = RName
+        self.RBranch = RBranch
+        self.FoodName = FoodName
+        self.Description = Description
+        self.Stock = Stock
+        self.Price = Price
+        self.FCategory = FCategory -->
+
+<!--         
+        self.FCategoryName = ""
+        self.IngredientName = [] -->
+
+
+        {% for food in list_food %}
         <tbody>
           <tr class="">
-            <td>1</td>
-            <td>Roti Bakar Coklat Keju</td>
-            <td>Roti dengan isian coklat dan keju yang dibakar</td>
-            <td>10</td>
-            <td>8000</td>
-            <td>Snack</td>
-            <td>Roti, Mentega, Coklat, Keju</td>
+            <td>{{forloop.counter}}}</td>
+            <td>{{food.FoodName}}</td>
+            <td>{{food.Description}}</td>
+            <td>{{food.Stock}}</td>
+            <td>{{food.Price}}</td>
+            <td>{{food.FCategoryName}}</td>
+            <td>
+              <ul>
+                {% for ingredient in food.IngredientName %}
+                  {{ingredient}}
+                {% endfor %}
+              </ul>
+
+            </td>
 
           </tr>
-
-          <tr class="">
-            <td>2</td>
-            <td>Milkshake Vanilla</td>
-            <td>Milkshake rasa vanilla dengan topping es krim</td>
-            <td>5</td>
-            <td>7000</td>
-            <td>Minuman</td>
-            <td>Susu, Es Krim, Gula</td>
-          </tr>
-          
         </tbody>
+        {% endfor %}
 
   </table>
 
