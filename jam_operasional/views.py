@@ -25,11 +25,21 @@ def jam_buat_op(request):
 def jam_buat(request, fail_add = False):
     return render(request, 'jam_buat.html', {"fail_add": fail_add}) 
 
-def jam_daftar(request):
+def jam_daftar(request, fail_delete = False):
     email = request.session.get('user_email')
     rr = RestaurantRepository()
     restaurant = rr.getByEmail(email)
-    return render(request, 'jam_daftar.html', {"restaurant": restaurant})
+    return render(request, 'jam_daftar.html', {"restaurant": restaurant, "fail_delete": fail_delete})
+
+def jam_delete_op(request, day):
+    print("masuk delete_op")
+    email = request.session.get('user_email')
+    rr = RestaurantRepository()
+    success = rr.deleteOperatingHours(email, day)
+    if success:
+        return redirect('/jam_operasional/daftar/')
+    else:
+        print('fail delete at views')
 
 def jam_ubah(request):
     return render(request, 'jam_ubah.html')

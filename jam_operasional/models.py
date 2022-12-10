@@ -63,6 +63,28 @@ class RestaurantRepository:
         except:
             print("cant add hour, prob duplicate key?")
             return False
+    
+    def deleteOperatingHours(self, email, day):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM restaurant WHERE email = \'{email}\';
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        restaurant = Restaurant(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+
+        try:
+            print("models: try deleting hour")
+            query = f"""
+                        DELETE FROM restaurant_operating_hours
+                        WHERE name = \'{restaurant.rname}\' AND branch = \'{restaurant.rbranch}\'
+                        AND day = \'{day}\';
+                    """
+            cursor.execute(query)
+            return True
+        except:
+            print("cant delete hour")
+            return False
 
 class RestaurantOperatingHours:
 

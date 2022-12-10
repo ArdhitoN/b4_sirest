@@ -7,4 +7,5 @@ urlpatterns = [
     path('daftar/', views.jam_daftar, name='jam_daftar'),
     path('ubah/', views.jam_ubah, name='jam_ubah'),
     path('buat_request/', views.jam_buat_op, name='jam_buat_op'),
+    path('delete/<day>', views.jam_delete_op, name='jam_delete_op'),
 ]

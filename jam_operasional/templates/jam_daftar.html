@@ -23,8 +23,12 @@
             <td>{{ hour.starthours }}</td>
             <td>{{ hour.endhours }}</td>
             <td>
-              <a href="{% url 'jam_buat' %}" class="btn btn-primary">Ubah</a>
-              <a href="{% url 'jam_ubah' %}" class="btn btn-danger">Hapus</a>
+              <a href="{% url 'jam_ubah' %}" class="btn btn-primary">Ubah</a>
+              <a
+                href="{% url 'jam_delete_op' hour.day %}"
+                class="btn btn-danger"
+                >Hapus</a
+              >
             </td>
           </tr>
           {% endfor %}
