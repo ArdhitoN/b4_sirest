@@ -6,5 +6,5 @@ app_name = "kategori_makanan"
 urlpatterns = [
     path('', show_kategori_makanan, name='show_kategori_makanan'),
     path('tambah/', show_tambah_kategori_makanan, name='show_tambah_kategori_makanan'),
-    # path('hapus/', delete_kategori_makanan, name='delete_kategori_makanan'),
+    path('hapus/<str:id>', delete_kategori_makanan, name='delete_kategori_makanan'),
 ]
