@@ -2,11 +2,15 @@ from django.shortcuts import render
 from transaksi_pesanan.forms import *
 from transaksi_pesanan.models import *
 
+# Views Restoran
+
 def p_berlangsung(response):
     return render(response, 'pesanan_berlangsung.html')
 
 def p_detail(response):
     return render(response, 'pesanan_detail.html')
+
+# Views Pelanggan
 
 def tambah_transaksi(request):
     context = {"form":FormAlamat()}
