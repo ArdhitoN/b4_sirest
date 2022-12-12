@@ -2,8 +2,11 @@ from django.urls import path
 from transaksi_pesanan.views import *
 
 urlpatterns = [
-    path('', p_berlangsung, name='rpesanan-index'),
-    path('detail/', p_detail, name='rpesanan-detail'),
+    # resto
+    path('', p_berlangsung, name='rpesanan_index'),
+    # path('detail/', p_detail, name='rpesanan_detail'),
+    path('add_status/', p_addstatus, name='rpesanan_confirm'),
+    # pelanggan
     path('tambah/', tambah_transaksi, name="tambah_transaksi"),
     path('pilih_restoran/', pilih_restoran, name="pilih_restoran"),
     path('pilih_makanan/', pilih_makanan, name="pilih_makanan"),
