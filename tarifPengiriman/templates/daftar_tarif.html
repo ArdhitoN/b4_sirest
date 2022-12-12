@@ -33,44 +33,26 @@
           <td>Aksi</td>
         </thead>
 
+
+        {% for tarif_pengiriman in list_tarif_pengiriman %}
         <tbody>
           <tr class="">
-            <td>1</td>
-            <td>DKI Jakarta</td>
-            <td>5000</td>
-            <td>7000</td>
+            <td>{{tarif_pengiriman.id}}</td>
+            <td>{{tarif_pengiriman.province}}</td>
+            <td>{{tarif_pengiriman.motorfee}}</td>
+            <td>{{tarif_pengiriman.carfee}}</td>
             <td>
-              <a href="{% url 'tarifPengiriman:show_update_tarif' %}">Ubah</a>
+              <a href="{% url 'tarifPengiriman:show_update_tarif' tarif_pengiriman.id tarif_pengiriman.province %}">Ubah</a>
               <br>
-              <a href="{% url 'tarifPengiriman:hapus_tarif' %}">Hapus</a>
-            </td>
-          </tr>
-
-          <tr class="">
-            <td>2</td>
-            <td>Jawa Barat</td>
-            <td>6000</td>
-            <td>7000</td>
-            <td>
-              <a href="{% url 'tarifPengiriman:show_update_tarif' %}">Ubah</a>
-              <br>
-              <a href="{% url 'tarifPengiriman:hapus_tarif' %}">Hapus</a>
-            </td>
-          </tr>
-
-          <tr class="">
-            <td>3</td>
-            <td>Papua</td>
-            <td>6000</td>
-            <td>6800</td>
-            <td>
-              <a href="{% url 'tarifPengiriman:show_update_tarif' %}">Ubah</a>
-              <br>
-              <a href="{% url 'tarifPengiriman:hapus_tarif' %}">Hapus</a>
+              <form action="{% url 'tarifPengiriman:hapus_tarif' tarif_pengiriman.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Hapus">
+              </form>
             </td>
           </tr>
           
         </tbody>
+        {% endfor %}  
 
   </table>
 

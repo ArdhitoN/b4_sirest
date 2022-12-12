@@ -1,8 +1,8 @@
-{% load static %}
-
 {% extends 'base.html' %} 
 
+{% load static %}
 
+{% block meta %}
 <title>Buat Makanan</title>
 <style>
   *{
@@ -14,36 +14,58 @@
 
 {% block content %}
 
+{% if request.session.role == 'admin' %}
+{% include 'navbarAdmin.html' %}
+{% elif request.session.role == 'customer' %}
+{% include 'navbarPelanggan.html' %}
+{% elif request.session.role == 'kurir' %}
+{% include 'navbarKurir.html' %}
+{% endif %}
+
+
 <div class="">
 
-  <h1>Detail Restoran: [Nama - Cabang Restoran]</h1>
+  <h1>Detail Restoran: {{restoran.rname}} - {{restoran.rbranch}}</h1>
   <hr>
 
-  <h3>Nama Restoran : [teks]</h3>
-  <h3>Cabang: [teks]</h3>
-  <h3>Nomor telepon: [teks]</h3>
-  <h3>Jalan: [teks]</h3>
-  <h3>Kecamatan: [teks]</h3>
-  <h3>Kota: [teks]</h3>
-  <h3>Provinsi: [teks]</h3>
-  <h3>Rating: [teks, 0 jika belum ada] </h3>
-  <h3>Kategori restoran:  [teks] </h3>
+  <h3>Nama Restoran : {{restoran.rname}}</h3>
+  <h3>Cabang: {{restoran.rbranch}}</h3>
+  <h3>Nomor telepon: {{restoran.rphonenum}}</h3>
+  <h3>Jalan: {{restoran.street}}</h3>
+  <h3>Kecamatan: {{restoran.district}}</h3>
+  <h3>Kota: {{restoran.city}}</h3>
+  <h3>Provinsi: {{restoran.province}}</h3>
+  <h3>Rating: {% if restoran.rating %} 
+                {{restoran.rating}}
+              {% else %}
+                0
+              {% endif %} 
+            
+  </h3>
+  <h3>Kategori restoran:  {{kategori_restoran.name}} </h3>
+
+  <!-- self.day = day
+  self.starthours = starthours
+  self.endhours = endhours -->
+
   
   <h3>Jam operasional: </h3>
   <ul>
-    <li>1</li>
-    <li>2</li>
+    {% for restoran_opHours in list_restoran_opHours %}
+      <li>{{restoran_opHours.day}}, {{restoran_opHours.starthours}} - {{restoran_opHours.endhours}}  </li>
+    {% endfor %}
   </ul>
 
   <h3>Promo berlangsung</h3>
 
-  <ul >
-    <li>1</li>
-    <li>2</li>
+  <ul>
+    {% for promo_restoran in list_promo_restoran %}
+      <li>Promo ID: {{promo_restoran.pid}}, Berlaku: {{promo_restoran.start}} - {{promo_restoran.promoend}}  </li>
+    {% endfor %}
   </ul>
 
 
-  <button>Kembali</button>
+  <a href="{% url 'Makanan:show_daftar_restoran'%}">Kembali</a>
 
 </div>
 

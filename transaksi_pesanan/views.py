@@ -65,6 +65,8 @@ def p_addstatus(request):
 
 # Views Pelanggan
 
+# Views Pelanggan
+
 def tambah_transaksi(request):
     context = {"form":FormAlamat()}
     return render(request, 'tambah_pesanan.html', context)

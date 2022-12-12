@@ -1,4 +1,4 @@
-
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -17,6 +17,16 @@
 
 {% block content %}
 
+{% if request.session.role == 'admin' %}
+{% include 'navbarAdmin.html' %}
+{% elif request.session.role == 'customer' %}
+{% include 'navbarPelanggan.html' %}
+{% elif request.session.role == 'kurir' %}
+{% include 'navbarKurir.html' %}
+{% endif %}
+
+
+
 <div class="text-center">
 
   <h1 >Daftar Restoran</h1>
@@ -32,31 +42,20 @@
           <td>Aksi</td>
         </thead>
 
+        {% for restoran in list_restoran %}
         <tbody>
           <tr class="">
-            <td>1</td>
-            <td>McDonald’s Depok</td>
-            <td>4.7</td>
+            <td>{{ forloop.counter }}</td>
+            <td>{{restoran.rname}} - {{restoran.rbranch}} </td>
+            <td>{{restoran.rating}} </td>
             <td>
-              <a href="{% url 'Makanan:show_detail_resto' %}">Detail</a>
-              <br>
-              <a href="{% url 'Makanan:show_makanan_nonRestoView' %}">Menu</a>
+            <a href="{% url 'Makanan:show_detail_resto' restoran.rname restoran.rbranch %}">Detail</a>
+            <br>
+            <a href="{% url 'Makanan:show_makanan_nonRestoView' restoran.rname restoran.rbranch %}">Menu</a>
             </td>
           </tr>
-
-          <tr class="">
-            <td>2</td>
-            <td>KFC Depok</td>
-            <td>4.3</td>
-            <td>
-              <a href="{% url 'Makanan:show_detail_resto' %}">Detail</a>
-              <br>
-              <a href="{% url 'Makanan:show_makanan_nonRestoView' %}">Menu</a>
-            </td>
-          </tr>
-
         </tbody>
-
+        {% endfor %}  
   </table>
 
 {% endblock content %}
