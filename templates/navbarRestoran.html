@@ -22,7 +22,7 @@
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
-            href="#"
+            href="{% url 'jam_daftar' %}"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
@@ -32,9 +32,9 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="#">Daftar Jam Operasional </a>
+              <a class="dropdown-item" href="{% url 'jam_daftar' %}">Daftar Jam Operasional </a>
             </li>
-            <li><a class="dropdown-item" href="#">Buat Jam Operasional</a></li>
+            <li><a class="dropdown-item" href="{% url 'jam_buat' %}">Buat Jam Operasional</a></li>
           </ul>
         </li>
 
@@ -67,7 +67,7 @@
             Pesanan
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Pesanan Berlangsung</a></li>
+            <li><a class="dropdown-item" href="{% url 'rpesanan_index' %}">Pesanan Berlangsung</a></li>
             <li><a class="dropdown-item" href="#">Riwayat Pesanan</a></li>
           </ul>
         </li>
@@ -90,7 +90,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">RestoPay</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'restopay-index' %}">RestoPay</a>
         </li>
 
         <li class="nav-item">
