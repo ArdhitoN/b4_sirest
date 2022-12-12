@@ -10,25 +10,17 @@
                 <th>Nama Kategori Makanan</th>
                 <th>Aksi</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Snack</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Minuman</td>
-                <td><button><a href="{% url 'kategori_makanan:delete_kategori_makanan'%}">Hapus</a></button></td>
-            </tr>
-            {% comment %}
             {% for kategori in kategori_makanan %}
             <tr>
-                <th>{{forloop.counter}}</th>
-                <th>{{kategori.name}}</th>
-                <th><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.pk%}">Hapus</a></button></th>
+                <td>{{forloop.counter}}</td>
+                <td>{{kategori.name}}</td>
+                {% if not kategori.used %}
+                <td><button><a href="{% url 'kategori_makanan:delete_kategori_makanan' kategori.id%}">Hapus</a></button></td>
+                {% else %}
+                <td></td>
+                {% endif %}
             </tr>
             {% endfor %}
-            {% endcomment %}
         </table>
     </div>
 </div>

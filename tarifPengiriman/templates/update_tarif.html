@@ -21,27 +21,31 @@
 </div>
 
 
-<form  method="POST">
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
+
+<form  action="{% url 'tarifPengiriman:update_tarif' id province %}" method="POST">
   {% csrf_token %}
     
     <div class="mb-3">
       <label for="provinsi" class="form-label" >Provinsi: </label>
-      <input type="text" class="form-control" id="provinsi" name="provinsi" disabled value="DKI Jakarta">
+      <input type="text" class="form-control" id="provinsi" name="province" disabled value={{province}}>
       <div id="provinsiHelp" class="form-text"></div>
     </div>
     
     <div class="mb-3">
       <label for="tarif-motor" class="form-label">Tarif Motor: </label>
-      <input type="number" class="form-control" id="tarif-motor" name="tarif-motor">
+      <input type="number" class="form-control" id="tarif-motor" name="motorfee">
     </div>
 
         
     <div class="mb-3">
       <label for="tarif-motor" class="form-label">Tarif Mobil: </label>
-      <input type="number" class="form-control" id="tarif-mobil" name="tarif-mobil">
+      <input type="number" class="form-control" id="tarif-mobil" name="carfee">
     </div>
     
-    <button type="submit" class="btn btn-primary">Simpan</button>
+    <input type="submit" value="Simpan">
 
 </form>
 
