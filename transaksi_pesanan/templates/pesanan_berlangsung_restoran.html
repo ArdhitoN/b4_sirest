@@ -30,7 +30,7 @@
               </button>
               <!-- Konfirmasi Button -->
               {% with datetime=transaction_food.transaction_datetime|date:"Y-m-d H:i:s" %}
-              {% if transaction_food.transaction_status == "Menunggu Konfirmasi" %}
+              {% if transaction_food.transaction_status == "Menunggu konfirmasi" %}
               <button id="konfirmasi" onclick="confirm('{{ transaction_food.email }}', '{{ datetime }}', '{{ transaction_food.transaction_status }}')"type="button" class="btn btn-primary">Konfirmasi</button>
               {% endif %}
               {% if transaction_food.transaction_status == "Pesanan Dibuat" %}
