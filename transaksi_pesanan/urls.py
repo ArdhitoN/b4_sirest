@@ -4,11 +4,11 @@ from transaksi_pesanan.views import *
 app_name = 'transaksi_pesanan'
 
 urlpatterns = [
-    # Path Restoran
-    path('', p_berlangsung, name='rpesanan-index'),
-    path('detail/', p_detail, name='rpesanan-detail'),
-
-    # Path Pelanggan
+    # resto
+    path('', p_berlangsung, name='rpesanan_index'),
+    # path('detail/', p_detail, name='rpesanan_detail'),
+    path('add_status/', p_addstatus, name='rpesanan_confirm'),
+    # pelanggan
     path('tambah/', tambah_transaksi, name="tambah_transaksi"),
     path('pilih_alamat/', pilih_alamat, name="pilih_alamat"),
     path('pilih_restoran/', pilih_restoran, name="pilih_restoran"),

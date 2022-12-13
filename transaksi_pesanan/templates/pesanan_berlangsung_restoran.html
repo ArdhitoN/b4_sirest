@@ -1,0 +1,124 @@
+{% include 'navbarRestoran.html' %}
+<div class="container my-5 px-5">
+  <div class="row row-cols-1">
+    <div class="col text-center mb-3">
+      <h4>Pesanan Berlangsung</h4>
+    </div>
+    <div class="col mb-3">
+      <table class="table">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No</th>
+            <th scope="col">Nama Pelanggan</th>
+            <th scope="col">Waktu Pesanan Dibuat</th>
+            <th scope="col">Status Pesanan</th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for transaction_food in transaksi_foods %}
+          
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ transaction_food.cust.customer_name }}</td>
+            <td>{{ transaction_food.transaction_datetime|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ transaction_food.transaction_status }}</td>
+            <td>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail{{ forloop.counter }}">
+                Detail
+              </button>
+              <!-- Konfirmasi Button -->
+              {% with datetime=transaction_food.transaction_datetime|date:"Y-m-d H:i:s" %}
+              {% if transaction_food.transaction_status == "Menunggu konfirmasi" %}
+              <button id="konfirmasi" onclick="confirm('{{ transaction_food.email }}', '{{ datetime }}', '{{ transaction_food.transaction_status }}')"type="button" class="btn btn-primary">Konfirmasi</button>
+              {% endif %}
+              {% if transaction_food.transaction_status == "Pesanan Dibuat" %}
+              <button id="konfirmasi" onclick="confirm('{{ transaction_food.email }}', '{{ datetime }}', '{{ transaction_food.transaction_status }}')"type="button" class="btn btn-primary">Kirim</button>
+              {% endif %}
+              <!-- Kirim Button -->
+              <!-- Modal -->
+              <div class="modal fade" id="detail{{ forloop.counter }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Pesanan</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6>Waktu pemesanan: {{ transaction_food.transaction_datetime|date:"Y-m-d H:i:s"}}</h6>
+              
+                        <div>Nama Pelanggan: {{ transaction_food.cust.customer_name }}</div>
+                        <div>Jalan: {{ transaction_food.street }}</div>
+                        <div>Kecamatan: {{ transaction_food.district }}</div>
+                        <div>Kota: {{ transaction_food.city }}</div>
+                        <div>Provinsi: {{ transaction_food.province }}</div>
+                        <div>Restoran: {{ restaurant.rname }}</div>
+                        <div>Jalan: {{ restaurant.street }}</div>
+                        <div>Kecamatan: {{ restaurant.district }}</div>
+                        <div>Kota: {{ restaurant.city }}</div>
+                        <div>Provinsi: {{ restaurant.province }}</div>
+        
+                    <div>
+                        <div>Makanan yang dipesan:</div>
+                        <div>
+                            <ul>
+                                {% for food in transaction_food.foods %}
+                                  <li>
+                                    {{ food.foodname }} ({{ food.amount }}) - {{ food.note }}
+                                  </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div>Total Harga Makanan: {{ transaction_food.totalfood }}</div>
+                        <div>Total Diskon: {{ transaction_food.totaldiscount }}</div>
+                        <div>Biaya Pengantaran: {{ transaction_food.deliveryfee }}</div>
+                        <div>Total Biaya: {{ transaction_food.totalprice }}</div>
+                        <div>Jenis Pembayaran: RestoPay</div>
+                        <br>
+                        <div>Status Pembayaran: Berhasil</div>
+                        <div>Status Pesanan: {{ transaction_food.transaction_status }}</div>
+                        <br>
+                        <div>Kurir: {{ transaction_food.nama_kurir }}</div>
+                        <div>Plat Kendaraan: {{ transaction_food.plat }}</div>
+                        <div>Jenis Kendaraan: {{ transaction_food.jenis_kendaraan }}</div>
+                        <div>Merk Kendaraan: {{ transaction_food.merk_kendaraan }}</div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endwith %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  var csrftoken = '{{ csrf_token }}'
+
+  function confirm(email, datetime, status) {
+    const requestObj = new XMLHttpRequest()
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText)
+        }
+    }
+
+    requestObj.open("POST", '/transaksi_pesanan/add_status/')
+    requestObj.setRequestHeader("X-CSRFToken", csrftoken)
+
+    const formdata = new FormData()
+    formdata.append('email', email)
+    formdata.append('datetime', datetime)
+    formdata.append('status', status)
+    requestObj.send(formdata)
+    window.location.href = '/transaksi_pesanan/';
+  }
+</script>
