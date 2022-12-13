@@ -14,18 +14,18 @@
                     <th>Promo Berlangsung</th>
                     <th>Aksi</th>
                 </tr>
+                {% for restaurant in restaurants %}
                 <tr>
-                    <td>1</td>
-                    <td>McDonald's Depok</td>
-                    <td>Promo 17 Agustusan</td>
-                    <td><input type="radio" name="restoran" value="McDonald's Depok" required /></td>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{restaurant.rname}} {{restaurant.rbranch}}</td>
+                    <td>
+                        {% for promo in restaurant.rpromo %}
+                        <span>{{promo_name}}<span><br>
+                        {% endfor %}
+                    </td>
+                    <td><input type="radio" name="restoran" value="{{restaurant.rname}}||{{restaurant.rbranch}}" required /></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>KFC Depok</td>
-                    <td></td>
-                    <td><input type="radio" name="restoran" value="KFC Depok" required /></td>
-                </tr>
+                {% endfor %}
             </table>
             <button>Pilih</button>
         </form>

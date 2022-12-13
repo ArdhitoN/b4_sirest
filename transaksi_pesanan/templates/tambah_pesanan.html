@@ -1,61 +1,4 @@
 {% extends 'base.html' %} 
-{% block meta %}
-<script>
-$(document).ready(function() {
-    $("#address").submit(function(e) {
-        var csrf = document.querySelector('[name=csrfmiddlewaretoken]').value
-        e.preventDefault();
-        $.ajax({
-            url: "/transaksi_pesanan/pilih_alamat/",
-            type: 'POST',
-            data: {
-                street: $("#id_street").val(),
-                district:$("#id_district").val(),
-                city: $("#id_city").val(),
-                province: $("#id_province").val(),
-                csrfmiddlewaretoken: csrf,
-            },
-        }).done(function(response) {
-            $("#page-title").text("Pilih Restoran")
-            $("#address").hide()
-            
-            var restaurant_form_table = 
-            `
-            <table id="restaurant-table" class="table bordered-table">
-                <tr>
-                    <th>No</th>
-                    <th>Nama - Cabang Restoran</th>
-                    <th>Promo Berlangsung</th>
-                    <th>Aksi</th>
-                </tr>
-            </table>
-            `
-            var restaurant_submit_button = `<button>Pilih</button>`
-            $("#restaurant-form").append(restaurant_form_table)
-            $("#restaurant-form").append(restaurant_submit_button)
-            for (var i in response.restaurants){
-                var restaurant = response.restaurants[i]
-                var restaurant_detail = `
-                <tr>
-                    <td>${i}</td>
-                    <td>${restaurant.rname} ${restaurant.rbranch}</td>
-                    <td id="rpromo${i}"></td>
-                    <td><input type="radio" name="restoran" value="${restaurant.remail}" required /></td>
-                </tr>`
-                $("#restaurant-table").append(restaurant_detail)
-                for (var j in restaurant.rpromo){
-                    var restaurant_promo = `
-                    <span>${restaurant.rpromo[j]}</span><br>
-                    `
-                    $(`#rpromo${i}`).append(restaurant_promo)
-                }
-            }
-        })
-    })
-})
-
-</script>
-{% endblock meta %}
 
 {% block content %}
 {% include 'navbarPelanggan.html' %}
@@ -82,12 +25,8 @@ $(document).ready(function() {
                 <span>Provinsi: </span>
                 <span>{{form.province}}</span>
             </div>
-            <button type="submit">Lanjut</button>
+            <button type="submit" id="address-button">Lanjut</button>
         </form>
-        
-        <div id="restaurant-form" method="POST">
-            {% csrf_token %}
-        </div>
     </div>
 </div>
 <div id = "arguments">

@@ -69,10 +69,6 @@ def p_addstatus(request):
 # Views Pelanggan
 
 def tambah_transaksi(request):
-    context = {"form":FormAlamat()}
-    return render(request, 'tambah_pesanan.html', context)
-
-def pilih_alamat(request):
     if request.method == "POST":
         form = FormAlamat(request.POST)
         if form.is_valid():
@@ -80,12 +76,10 @@ def pilih_alamat(request):
             district = form.cleaned_data["district"]
             city = form.cleaned_data["city"]
             province = form.cleaned_data["province"]
-            response = {
-                "street" : street,
-                "district" : district,
-                "city" : city,
-                "province" : province,
-            }
+            request.session["street"] = street
+            request.session["district"] = district
+            request.session["city"] = city
+            request.session["province"] = province
             cursor = connection.cursor()
             province_query = f"""
             SELECT * FROM DELIVERY_FEE_PER_KM
@@ -112,21 +106,108 @@ def pilih_alamat(request):
                 query_result = cursor.fetchall()
                 promos = []
                 for promo in query_result:
-                    promos.append(promo[0])
+                    promos.append({"promo_name":promo[0]})
                 restaurant_response_list.append({
                 "rname": restaurant[0],
                 "rbranch": restaurant[1],
                 "remail": restaurant[2],
                 "rpromo": promo})
-            response.update({"restaurants" : restaurant_response_list})
-            return JsonResponse(response)
-    return HttpResponseBadRequest()
+            request.session["restaurants"] = restaurant_response_list
+            return redirect("transaksi_pesanan:pilih_restoran")
+    context = {"form":FormAlamat()}
+    return render(request, 'tambah_pesanan.html', context)
             
 def pilih_restoran(request):
-    return render(request, "pilih_restoran.html")
+    if request.method == "POST":
+        restaurant = request.POST.get("restoran").split("||")
+        request.session["restaurant_name"] = restaurant[0]
+        request.session["restaurant_branch"] = restaurant[1]
+        return redirect("transaksi_pesanan:pilih_makanan")
+    context = {"restaurants": request.session["restaurants"]}
+    return render(request, "pilih_restoran.html", context)
 
 def pilih_makanan(request):
-    return render(request, "pilih_makanan.html")
+    if request.method == "POST":
+        food_amount_list = []
+        note_list = []
+        total_food = 0
+        food_list = request.session["food_list"]
+
+        for i in range(len(food_list)):
+            food_amount = int(request.POST.get("amount" + str(i)))
+            note = ""
+            if not food_amount:
+                note = request.POST.get("note"+str(i))
+            food_amount_list.append(food_amount)
+            note_list.append(note)
+            total_food += food_amount
+        payment_method  = request.POST.get("metode-bayar")
+        delivery_method = request.POST.get("metode-antar")
+        
+        # Store order to database
+        cursor = connection.cursor()
+        cursor.execute("SELECT now()::timestamp(0);")
+        timestamp = cursor.fetchone()[0]
+        request.session["order_timestamp"] = timestamp
+        cursor.execute(f"SELECT * FROM DELIVERY_FEE_PER_KM WHERE id = \'{request.session['province']}\'")
+        province = cursor.fetchone()[1]
+        order_query = f"""
+        INSERT INTO TRANSACTION
+        (Email, datetime, street, district, city, province, totalfood, totaldiscount, deliveryfee, totalprice, rating)
+        VALUES(
+            \'{request.session["user_email"]}\',            
+            \'{timestamp}\',
+            \'{request.session["street"]}\',
+            \'{request.session["district"]}\',
+            \'{request.session["city"]}\',
+            \'{province}\',
+            {str(total_food)},
+            0,
+            0,
+            0,
+            0)
+        """
+        cursor.execute(order_query)
+
+        # Store food amount to database
+        food_summary = []
+        for i in range(len(food_list)):
+            if not food_amount[i]:
+                order_food_query = f"""
+                INSERT INTO TRANSACTION_FOOD
+                VALUES (
+                    \'{request.session["user_email"]}\',
+                    \'{timestamp}\',
+                    \'{request.session["restaurant_name"]}\',
+                    \'{request.session["restaurant_branch"]}\',
+                    \'{food_list[i].name}\',
+                    {food_amount_list[i]},
+                """
+                if note_list[i] == "":
+                    order_food_query += f"{note_list[i]}"
+                order_food_query += ");"
+                cursor.execute(order_food_query)
+        return redirect("transaksi_pesanan:daftar_pesanan_pelanggan")
+
+    cursor = connection.cursor()
+    query = f"""
+    SELECT * FROM FOOD
+    WHERE rname = \'{request.session["restaurant_name"]}\'
+    AND rbranch = \'{request.session["restaurant_branch"]}\'
+    """
+    cursor.execute(query)
+    query_result = cursor.fetchall()
+    food_list = []
+    for food in query_result:
+        food_list.append({"name":food[2], "description":food[3], "stock":food[4], "price":food[5], "category":food[6]})
+    request.session["food_list"] = food_list
+    cursor.execute("SELECT * FROM PAYMENT_METHOD")
+    payment_option_result = cursor.fetchall()
+    payment_options = []
+    for payment_option in payment_option_result:
+        payment_options.append({"id": payment_option[0], "name": payment_option[1]})
+    context = {"food_list" : food_list, "payment_options": payment_options}
+    return render(request, "pilih_makanan.html", context)
 
 def daftar_pesanan_pelanggan(request):
     return render(request, 'daftar_pesanan_pelanggan.html')

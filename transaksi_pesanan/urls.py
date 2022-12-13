@@ -10,7 +10,6 @@ urlpatterns = [
     path('add_status/', p_addstatus, name='rpesanan_confirm'),
     # pelanggan
     path('tambah/', tambah_transaksi, name="tambah_transaksi"),
-    path('pilih_alamat/', pilih_alamat, name="pilih_alamat"),
     path('pilih_restoran/', pilih_restoran, name="pilih_restoran"),
     path('pilih_makanan/', pilih_makanan, name="pilih_makanan"),
     path('daftar_pesanan_pelanggan/', daftar_pesanan_pelanggan, name="daftar_pesanan_pelanggan"),
