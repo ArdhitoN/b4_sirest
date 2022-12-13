@@ -23,10 +23,29 @@ from django.utils.decorators import method_decorator
 from .models import *
 
 # Create your views here.
-def show_buat_tarif(request):
+def show_buat_tarif(request, message=""):
 
-    context = {}
+    context = {'message': message}
     return render(request, "buat_tarif.html", context)
+
+
+def buat_tarif(request):
+
+    if request.method == "POST":
+
+        province = request.POST["province"]
+        motorfee = request.POST["motorfee"]
+        carfee = request.POST["carfee"]
+
+        tarif_repo = TarifPengirimanRepository()
+        queryResult = tarif_repo.createTarifPengiriman(province, motorfee, carfee)
+        print(queryResult)
+
+    
+    if type(queryResult) == bool:
+        return redirect('/tarifPengiriman/daftar_tarif/')
+    else:
+        return show_buat_tarif(request, queryResult)
 
 
 def show_daftar_tarif(request):

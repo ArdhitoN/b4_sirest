@@ -35,13 +35,35 @@ def show_buat_makanan(request):
 
 
 def show_makanan_restoView(request):
-    current_user = auth.get_user(request)
-
+    email = request.session.get('user_email')
+    Restaurant_Repo = RestaurantRepository()
     
-    # if(not current_user.is_admin):
-    #     return redirect('authentication:login')
+    restaurant = Restaurant_Repo.getByEmail(email)
+    rname = restaurant.rname
+    rbranch =  restaurant.rbranch
 
-    context = {}
+    food_repo = FoodRepository()
+    list_makanan = food_repo.getAllRestaurantFood(rname, rbranch)
+
+
+    #TODO: ambil kategori makanan 
+    kategori_makanan_repo = Food_Category_Repository()
+    #TODO: ambil bahan makanan
+    food_ingredient_repo = Food_Ingredient_Repository()
+    ingredient_repo = Ingredient_Repository()
+
+    for makanan in list_makanan:
+        makanan.FCategoryName = kategori_makanan_repo.getCategoryById(makanan.FCategory).name
+
+        list_ingredientId = food_ingredient_repo.getIngredientId(rname, rbranch, makanan.FoodName)
+
+        for ingredientId in list_ingredientId:    
+            ingredient_name = ingredient_repo.getIngredientById(ingredientId).name
+            makanan.IngredientName.append(ingredient_name)
+
+
+    context = {'list_food': list_makanan}
+
     return render(request, "daftarMakanan_restoView.html", context)
 
 

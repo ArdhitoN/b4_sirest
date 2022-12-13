@@ -32,8 +32,11 @@ Jenis kendaraan: [dropdown, ‘Mobil’ atau ‘Motor’]
 Merk kendaraan: [isian] -->
 
 
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
 
-<form  method="POST">
+<form  action="{% url 'authentication:register_kurir' %}" method="POST">
   {% csrf_token %}
     
     <div class="mb-3">
@@ -48,56 +51,56 @@ Merk kendaraan: [isian] -->
       
     <div class="mb-3">
         <label for="Nama" class="form-label">Nama: </label>
-        <input type="text" class="form-control" id="Nama" name="Nama">
+        <input type="text" class="form-control" id="Nama" name="name">
     </div>
 
     <div class="mb-3">
         <label class="form-label">Nomor HP: </label>
-        <input type="text" class="form-control" name="Nomor">
+        <input type="text" class="form-control" name="phonenum">
     </div>
 
     
     <div class="mb-3">
         <label class="form-label">NIK: </label>
-        <input type="text" class="form-control" name="NIK">
+        <input type="text" class="form-control" name="nik">
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Nama Bank: </label>
-        <input type="text" class="form-control" name="Bank">
+        <input type="text" class="form-control" name="bankname">
     </div>
 
     
     <div class="mb-3">
         <label  class="form-label">Nomor Rekening: </label>
-        <input type="text" class="form-control" name="NomorRekening">
+        <input type="text" class="form-control" name="accountno">
     </div>
 
 
 
     <div class="mb-3">
         <label  class="form-label">Plat Nomor: </label>
-        <input type="text" class="form-control" name="PlatNomor">
+        <input type="text" class="form-control" name="platenum">
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Nomor SIM: </label>
-        <input type="text" class="form-control" name="NomorSIM">
+        <input type="text" class="form-control" name="drivinglicensenum">
     </div>
       
 
     <div class="mb-3">
         <label class="form-label">Jenis Kendaraan: </label>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" name="vehicletype">
           <option selected></option>
-          <option value="1">Mobil</option>
-          <option value="2">Motor</option>
+          <option value="Mobil">Mobil</option>
+          <option value="Motor">Motor</option>
         </select>
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Merk Kendaraan: </label>
-        <input type="text" class="form-control" name="MerkKendaraan">
+        <input type="text" class="form-control" name="vehiclebrand">
     </div> 
     
     <button type="submit" class="btn btn-primary">DAFTAR</button>
