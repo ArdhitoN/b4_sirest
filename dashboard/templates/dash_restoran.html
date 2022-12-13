@@ -36,15 +36,21 @@ Jam operasional:
       <p>Kota: {{ restaurant.city }}</p>
       <p>Provinsi: {{ restaurant.province }}</p>
       <p>Rating: {{ restaurant.rating }}</p>
-      <p>Kategori restoran: belom join ke kategori restaurant too HM</p>
+      <p>Kategori restoran: {{ restaurant.category }}</p>
       <p>Jam operasional:</p>
       <ul>
-        <li>masi bingung how to connect to jam operasional resto</li>
-        <li>Senin - 07.00 - 18.00</li>
-        <li>Selasa - 07.00 - 18.00</li>
+        {% for hour in restaurant.operating_hours %}
+        <li>{{ hour.day }}: {{ hour.starthours }} - {{ hour.endhours }}</li>
+        {% endfor %}
       </ul>
       <br />
-      <p>Status: [teks]</p>
+      {% if actor.adminid != None %}
+      <p>Status: Terverifikasi</p>
+      <p>Diverifikasi oleh: {{ actor.admin_name }}</p>
+      {% endif %}
+      {% if actor.adminid == None %}
+      <p>Status: Belum Terverifikasi</p>
+      {% endif %}
     </div>
   </div>
 </div>

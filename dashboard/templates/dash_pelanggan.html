@@ -26,7 +26,13 @@ Nomor rekening: [teks]
       <p>Tanggal lahir: {{ customer.birthdate }}</p>
       <p>Jenis Kelamin: {{ customer.sex }}</p>
       <br />
-      <p>Status: {{ actor.adminid }}</p>
+      {% if actor.adminid != None %}
+      <p>Status: Terverifikasi</p>
+      <p>Diverifikasi oleh: {{ actor.admin_name }}</p>
+      {% endif %}
+      {% if actor.adminid == None %}
+      <p>Status: Belum Terverifikasi</p>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -13,6 +13,18 @@
 
 from django.db import connection
 
+
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
+
+
 class UserAcc:
 
     def __init__(self, email, password, phonenum, fname, lname):
@@ -157,10 +169,13 @@ class TransactionActor:
     
     def __str__(self):
         return f"Ta Email: {self.email} Password: {self.email}"
+    
+    def add_admin_name(self, faname, laname):
+        self.admin_name = f"{faname} {laname}"
 
 class TransactionActorRepository:
 
-    def getByEmail(self, email):
+    def getByEmailOnly(self, email):
         cursor = connection.cursor()
         query = f"""
                     SELECT * from transaction_actor WHERE email = \'{email}\';
@@ -170,6 +185,24 @@ class TransactionActorRepository:
         ta = TransactionActor(row[0], row[1], row[2], row[3], row[4], row[5])
         print(row)
         print(ta)
+
+        return ta
+
+    # return actor with all derived attr too
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        ta = self.getByEmailOnly(email)
+
+        if ta.adminid is not None:
+
+            query = f"""
+                    SELECT fname, lname from user_acc WHERE email = \'{ta.adminid}\';
+                """
+            cursor.execute(query)
+            row = cursor.fetchone()
+            print(row)
+            ta.add_admin_name(row[0], row[1])
+
         return ta
 
     
@@ -224,10 +257,12 @@ class Restaurant:
         self.province = province
         self.rating = rating
         self.rcategory = rcategory
+        self.operating_hours = []
+        self.category = ""
 
 class RestaurantRepository:
 
-    def getByEmail(self, email):
+    def getByEmailOnly(self, email):
         cursor = connection.cursor()
         query = f"""
                     SELECT * FROM restaurant WHERE email = \'{email}\';
@@ -236,6 +271,33 @@ class RestaurantRepository:
         row = cursor.fetchone()
         restaurant = Restaurant(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
         print(row)
+        return restaurant
+
+    # dapet email dari session, also update restaurant.operating_hours list
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        restaurant = self.getByEmailOnly(email)
+        
+        if restaurant is not None:
+            # set operating hours
+            query = f"""
+                    SELECT * FROM restaurant_operating_hours WHERE name = \'{restaurant.rname}\' AND branch = \'{restaurant.rbranch}\';
+                """
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            for row in rows:
+                restaurant.operating_hours.append(RestaurantOperatingHours(row[0], row[1], row[2], row[3], row[4]))
+            
+            # set restaurant category using restaurant.rcategory
+            query2 = f"""
+                        SELECT name FROM restaurant_category WHERE id = \'{restaurant.rcategory}\'
+                      """
+            cursor.execute(query2)
+            row = cursor.fetchone()
+            restaurant.category = row[0]
+        print(restaurant.operating_hours)
+        print(restaurant.category)
+        # category belom di set
         return restaurant
 
     def createRestoran(self, rname, rbranch, email, rphonenum, street, district, city, province, rcategory):
@@ -256,55 +318,15 @@ class RestaurantRepository:
         except Exception as error:
             return error
 
-class Courier:
 
-    def __init__(self, email, platenum, drivinglicensenum, vehicletype, vehiclebrand):
-        self.email = email
-        self.platenum = platenum
-        self.drivinglicensenum = drivinglicensenum
-        self.vehicletype = vehicletype
-        self.vehiclebrand = vehiclebrand
+class RestaurantOperatingHours:
 
-class CourierRepository:
-
-    def getByEmail(self, email):
-        cursor = connection.cursor()
-        query = f"""
-                    SELECT * FROM courier WHERE email = \'{email}\';
-                """
-        cursor.execute(query)
-        row = cursor.fetchone()
-        courier = Courier(row[0], row[1], row[2], row[3], row[4])
-        print(row)
-        print(courier)
-        return courier
-
-
-    def createCourier(self, email, platenum, drivinglicensenum, vehicletype, vehiclebrand):
-        cursor = connection.cursor()
-
-        query = f"""
-                    INSERT INTO COURIER
-                    VALUES ('{email}','{platenum}', '{drivinglicensenum}' , '{vehicletype}', '{vehiclebrand}');
-                    ;    
-                """ 
-        
-        try:
-            cursor.execute(query)
-            return True
-            
-        except Exception as error:
-            return error
-
-
-
-def dictfetchall(cursor):
-    "Return all rows from a cursor as a dict"
-    columns = [col[0] for col in cursor.description]
-    return [
-        dict(zip(columns, row))
-        for row in cursor.fetchall()
-    ]
+    def __init__(self, name, branch, day, starthours, endhours):
+        self.name = name
+        self.branch = branch
+        self.day = day
+        self.starthours = starthours
+        self.endhours = endhours
 
 
 class Restaurant_Category:
@@ -348,6 +370,48 @@ class Restaurant_Category_Repository:
         restaurant_category = Restaurant_Category(row[0], row[1])
 
         return restaurant_category
+
+
+
+class Courier:
+
+    def __init__(self, email, platenum, drivinglicensenum, vehicletype, vehiclebrand):
+        self.email = email
+        self.platenum = platenum
+        self.drivinglicensenum = drivinglicensenum
+        self.vehicletype = vehicletype
+        self.vehiclebrand = vehiclebrand
+
+class CourierRepository:
+
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM courier WHERE email = \'{email}\';
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        courier = Courier(row[0], row[1], row[2], row[3], row[4])
+        print(row)
+        print(courier)
+        return courier
+
+
+    def createCourier(self, email, platenum, drivinglicensenum, vehicletype, vehiclebrand):
+        cursor = connection.cursor()
+
+        query = f"""
+                    INSERT INTO COURIER
+                    VALUES ('{email}','{platenum}', '{drivinglicensenum}' , '{vehicletype}', '{vehiclebrand}');
+                    ;    
+                """ 
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
 
 
 
