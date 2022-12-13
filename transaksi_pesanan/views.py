@@ -165,8 +165,7 @@ def pilih_makanan(request):
             0,
             0,
             0,
-            0)
-        """
+            0)"""
         cursor.execute(order_query)
 
         # Store food amount to database
