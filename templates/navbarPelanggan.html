@@ -37,9 +37,9 @@
             Pesanan
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Buat Pesanan</a></li>
+            <li><a class="dropdown-item" href="{% url 'transaksi_pesanan:tambah_transaksi' %}">Buat Pesanan</a></li>
             <li>
-              <a class="dropdown-item" href="#">Pesanan Berlangsung</a>
+              <a class="dropdown-item" href="{% url 'transaksi_pesanan:pesanan_berlangsung_pelanggan' %}">Pesanan Berlangsung</a>
             </li>
             <li><a class="dropdown-item" href="#">Riwayat Pesanan</a></li>
             <li><hr class="dropdown-divider" /></li>
