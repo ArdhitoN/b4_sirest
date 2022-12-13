@@ -4,12 +4,16 @@ from django.contrib import messages
 from kategori_makanan.models import *
 
 def show_kategori_makanan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     category_repo = FoodCategoryRepository()
     categories = category_repo.get_all()
     context = {"kategori_makanan" : categories}
     return render(request, 'kategori_makanan.html', context)
     
 def show_tambah_kategori_makanan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     if request.method == "POST":
         nama_kategori = request.POST.get("kategori")
         if (nama_kategori == ""):
@@ -21,6 +25,8 @@ def show_tambah_kategori_makanan(request):
     return render(request, 'tambah_kategori_makanan.html')
 
 def delete_kategori_makanan(request, id):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     category_repo = FoodCategoryRepository()
     category_repo.delete_category(id)
     return redirect('kategori_makanan:show_kategori_makanan')
