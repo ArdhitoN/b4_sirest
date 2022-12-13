@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 {% include 'navbarPelanggan.html' %}
 <div>
@@ -15,28 +14,15 @@
                     <th>Jumlah</th>
                     <th>Catatan (Opsional)</th>
                 </tr>
+                {% for food in food_list %}
                 <tr>
-                    <td>1</td>
-                    <td>Ayam Goreng</td>
-                    <td>5000</td>
-                    <td><button>-</button><span>1</span><button>+</button></td>
-                    <td><Button>Tambah Catatan</Button></td>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{food.name}}</td>
+                    <td>{{food.price}}</td>
+                    <td><input type="number" name="amount{{forloop.counter0}}" value="0" min="0"></td>
+                    <td><input type="text" name="note{{forloop.counter0}}"></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Ice Cream</td>
-                    <td>3000</td>
-                    <td><button>-</button><span>2</span><button>+</button></td>
-                    <td><Button>Tambah Catatan</Button></td>
-
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Ikan Bakar</td>
-                    <td>5000</td>
-                    <td><button>-</button><span>0</span><button>+</button></td>
-                    <td></td>
-                </tr> 
+                {% endfor %}
             </table>
             <div>
                 <h4>Pilih Metode Pembayaran dan Pengantaran</h4>
@@ -50,8 +36,9 @@
                 <br>
                 <span>Metode Pembayaran</span>
                 <span><select name="metode-bayar" id="">
-                    <option value="RestoPay">RestoPay</option>
-                    <option value="Placeholder">Placeholder</option>
+                    {% for payment_option in payment_options %}
+                    <option value="{{payment_option.id}}">{{payment_option.name}}</option>
+                    {% endfor %}
                 </select></span>
             </div>
             <button type="Submit">Pesan</button>
