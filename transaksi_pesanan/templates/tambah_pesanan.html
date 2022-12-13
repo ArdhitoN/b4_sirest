@@ -2,12 +2,12 @@
 
 {% block content %}
 {% include 'navbarPelanggan.html' %}
-<div>
-    <div>
+<div id ="content-wrapper">
+    <div id="page-title">
         <h2>FORM PENGISIAN ALAMAT PEMESANAN MAKANAN</h2>
     </div>
-    <div>
-        <form action="" method="POST">
+    <div id="page-content">
+        <form id="address" method="POST">
             {% csrf_token %}
             <div>
                 <span>Jalan: </span>
@@ -25,8 +25,10 @@
                 <span>Provinsi: </span>
                 <span>{{form.province}}</span>
             </div>
-            <button type="submit">Lanjut</button>
+            <button type="submit" id="address-button">Lanjut</button>
         </form>
     </div>
+</div>
+<div id = "arguments">
 </div>
 {% endblock content %}
