@@ -247,7 +247,95 @@ class FoodRepository:
 
         return list_food
 
+    def getFoodByName(self, rname, rbranch, foodname):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM food WHERE rname = '{rname}' and rbranch = '{rbranch}' and foodname= '{foodname}'
+                    ;
+                """
+        cursor.execute(query)
+        
+        food_objects = dictfetchall(cursor)
 
+        list_food = []
+        for i in range(len(food_objects)):
+            food = Food(food_objects[i]['rname'], 
+                        food_objects[i]['rbranch'],
+                        food_objects[i]['foodname'],
+                        food_objects[i]['description'],
+                        food_objects[i]['stock'], 
+                        food_objects[i]['price'], 
+                        food_objects[i]['fcategory']
+            )
+
+                                        
+            list_food.append(food)
+
+        # print(list_food_promo)
+
+        return list_food[0]
+
+    
+    def createFood(self, rname, rbranch, foodname, description, stock, price, fcategory):
+        
+        cursor = connection.cursor()
+
+        query = f"""
+                    INSERT INTO FOOD
+                    VALUES ('{rname}','{rbranch}', '{foodname}' , '{description}', {stock}, {price}, '{fcategory}');
+                    ;    
+                """ 
+        
+        
+        try:
+            cursor.execute(query)
+            
+            return True
+            
+        except Exception as error:
+            return error
+    
+
+
+    def updateFood(self, rname, rbranch, foodname, new_description, new_stock, new_price, new_fcategory):
+        
+        # Ingredient diupdate terpisah
+
+        cursor = connection.cursor()
+        query = f"""
+                    UPDATE FOOD
+                    SET description= '{new_description}', stock= {new_stock}, price= {new_price}, fcategory = '{new_fcategory}'
+                    WHERE rname= '{rname}' and rbranch = '{rbranch}' and foodname = '{foodname}'
+                    ;    
+                """ 
+        
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
+
+
+    def deleteFood(self, rname, rbranch, foodname):
+
+        cursor = connection.cursor()
+
+      
+        query = f"""
+                    DELETE FROM FOOD
+                    WHERE rname= '{rname}' and rbranch = '{rbranch}' and foodname = '{foodname}'
+                    ;    
+                """ 
+        try:
+            cursor.execute(query)
+            return True
+
+        except Exception as error:
+            return error
+
+            
 
 
 class Food_Category:
@@ -379,3 +467,34 @@ class Food_Ingredient_Repository:
         return list_ingredient_id
 
 
+    def createFoodIngredient(self, rname, rbranch, foodname, ingredient):
+        
+        cursor = connection.cursor()
+
+        query = f"""
+                    INSERT INTO FOOD_INGREDIENT
+                    VALUES ('{rname}','{rbranch}', '{foodname}' , '{ingredient}')
+                    ;    
+                """ 
+        
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
+    
+    
+    def deleteFoodIngredient(self, rname, rbranch, foodname, ingredient):
+
+        cursor = connection.cursor()
+        query = f"""
+                    DELETE FROM FOOD_INGREDIENT
+                    WHERE rname= '{rname}' and rbranch = '{rbranch}' and foodname = '{foodname}' and ingredient= '{ingredient}'
+                    ;    
+                """ 
+        
+        cursor.execute(query)
+        return True
+            
