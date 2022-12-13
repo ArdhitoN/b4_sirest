@@ -104,7 +104,10 @@ class TarifPengirimanRepository:
                     WHERE id= '{id}'
                     ;    
                 """ 
-        
-        cursor.execute(query)
-        return True
+        try:
+            cursor.execute(query)
+            return True
+        except Exception as e:
+            return e
+            
             
