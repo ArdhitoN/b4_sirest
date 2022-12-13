@@ -48,6 +48,11 @@ from django.shortcuts import render, redirect
 from .models import UserAccRepository, TransactionActorRepository, RestaurantRepository, CustomerRepository, Restaurant_Category_Repository, CourierRepository
 from django.http import HttpResponse
 
+def index(request):
+    return render(request, 'Login&Register.html')
+
+def register_all(request):
+    return render(request, 'register.html')
 
 def show_login(request, user_not_exist = False):
     return render(request, 'login.html', {"user_not_exist": user_not_exist})
