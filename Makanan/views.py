@@ -86,6 +86,9 @@ def buat_makanan(request):
 
 
         ingredient = request.POST["ingredient"]
+
+        if(foodname == "" or description == "" or stock == "" or price == ""):
+            return show_buat_makanan(request, "Data yang kamu isi belum lengkap!")
         print(ingredient)
 
         food_ingredient_repo = Food_Ingredient_Repository()

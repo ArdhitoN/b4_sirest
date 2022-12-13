@@ -260,6 +260,7 @@ class Restaurant:
         self.operating_hours = []
         self.category = ""
 
+
 class RestaurantRepository:
 
     def getByEmailOnly(self, email):
