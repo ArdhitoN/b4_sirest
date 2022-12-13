@@ -36,7 +36,11 @@ Provinsi: [dropdown, ambil data Province dari tabel DELIVERY_FEE_PER_KM]
 Kategori restoran: [dropdown, ambil data Name dari tabel RESTAURANT_CATEGORY] -->
 
 
-<form  method="POST">
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
+
+<form  action="{% url 'authentication:register_restoran' %}" method="POST">
   {% csrf_token %}
     
     <div class="mb-3">
@@ -51,81 +55,77 @@ Kategori restoran: [dropdown, ambil data Name dari tabel RESTAURANT_CATEGORY] --
       
     <div class="mb-3">
         <label for="Nama" class="form-label">Nama: </label>
-        <input type="text" class="form-control" id="Nama" name="Nama">
+        <input type="text" class="form-control" id="Nama" name="name">
     </div>
 
     <div class="mb-3">
         <label class="form-label">Nomor HP: </label>
-        <input type="text" class="form-control" name="Nomor">
+        <input type="text" class="form-control" name="phonenum">
     </div>
 
     
     <div class="mb-3">
         <label class="form-label">NIK: </label>
-        <input type="text" class="form-control" name="NIK">
+        <input type="text" class="form-control" name="nik">
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Nama Bank: </label>
-        <input type="text" class="form-control" name="Bank">
+        <input type="text" class="form-control" name="bankname">
     </div>
 
     
     <div class="mb-3">
         <label  class="form-label">Nomor Rekening: </label>
-        <input type="text" class="form-control" name="NomorRekening">
+        <input type="text" class="form-control" name="accountno">
     </div>
 
 
 
     <div class="mb-3">
         <label  class="form-label">Nama Restoran: </label>
-        <input type="text" class="form-control" name="NamaRestoran">
+        <input type="text" class="form-control" name="rname">
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Cabang: </label>
-        <input type="text" class="form-control" name="Cabang">
+        <input type="text" class="form-control" name="rbranch">
     </div>
       
       
     <div class="mb-3">
         <label  class="form-label">No telepon: </label>
-        <input type="text" class="form-control" name="NoTelepon">
+        <input type="text" class="form-control" name="rphonenum">
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Jalan: </label>
-        <input type="text" class="form-control" name="Jalan">
+        <input type="text" class="form-control" name="street">
     </div>
 
     <div class="mb-3">
         <label  class="form-label">Kecamatan: </label>
-        <input type="text" class="form-control" name="Kecamatan">
+        <input type="text" class="form-control" name="district">
     </div>
       
 
     
     <div class="mb-3">
         <label  class="form-label">Kota: </label>
-        <input type="text" class="form-control" name="Kota">
+        <input type="text" class="form-control" name="city">
     </div>
     
     <div class="mb-3">
         <label  class="form-label">Provinsi: </label>
-        <input type="text" class="form-control" name="Provinsi">
+        <input type="text" class="form-control" name="province">
     </div>
-
-
     <div class="mb-3">
         <label class="form-label">Kategori restoran: </label>
-        <select class="form-select" aria-label="Default select example">
-          <option selected></option>
-          <option value="1">Fast Food</option>
-          <option value="2">Fast Casual Dining</option>
-          <option value="3">Cafe</option>
-          <option value="4">Casual Style Dining</option>
-          <option value="5">Fine Dining</option>
+        <select class="form-select" aria-label="Default select example" name="rcategory">
+        {% for kategori_restoran in list_kategori_restoran %}
+          <!-- <option ></option> -->
+            <option value="{{kategori_restoran.id}}">{{kategori_restoran.name}}</option>
+        {% endfor %}
         </select>
     </div>
     

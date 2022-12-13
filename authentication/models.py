@@ -127,6 +127,22 @@ class UserAccRepository:
         else:
             print("none: restaurant")
             return False
+
+        
+    def createUserAcc(self, email, password, phonenum, fname, lname):
+        cursor = connection.cursor()
+
+        query = f"""
+                    INSERT INTO USER_ACC
+                    VALUES ('{email}','{password}', '{phonenum}', '{fname}' , '{lname}');
+                """ 
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
     
         
 class TransactionActor:
@@ -155,6 +171,24 @@ class TransactionActorRepository:
         print(row)
         print(ta)
         return ta
+
+    
+    def createTransactionActor(self, email, nik, bankname, accountno):
+        cursor = connection.cursor()
+
+        query = f"""
+                    INSERT INTO TRANSACTION_ACTOR
+                    VALUES ('{email}','{nik}', '{bankname}' , '{accountno}');
+                    ;    
+                """ 
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
+
 
 class Customer:
 
@@ -203,5 +237,125 @@ class RestaurantRepository:
         restaurant = Restaurant(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
         print(row)
         return restaurant
+
+    def createRestoran(self, rname, rbranch, email, rphonenum, street, district, city, province, rcategory):
+        cursor = connection.cursor()
+
+        rating = 0
+
+        query = f"""
+                    INSERT INTO RESTAURANT
+                    VALUES ('{rname}','{rbranch}', '{email}' , '{rphonenum}', '{street}', '{district}', '{city}', '{province}', {rating}, '{rcategory}');
+                    ;    
+                """ 
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
+
+class Courier:
+
+    def __init__(self, email, platenum, drivinglicensenum, vehicletype, vehiclebrand):
+        self.email = email
+        self.platenum = platenum
+        self.drivinglicensenum = drivinglicensenum
+        self.vehicletype = vehicletype
+        self.vehiclebrand = vehiclebrand
+
+class CourierRepository:
+
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM courier WHERE email = \'{email}\';
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+        courier = Courier(row[0], row[1], row[2], row[3], row[4])
+        print(row)
+        print(courier)
+        return courier
+
+
+    def createCourier(self, email, platenum, drivinglicensenum, vehicletype, vehiclebrand):
+        cursor = connection.cursor()
+
+        query = f"""
+                    INSERT INTO COURIER
+                    VALUES ('{email}','{platenum}', '{drivinglicensenum}' , '{vehicletype}', '{vehiclebrand}');
+                    ;    
+                """ 
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
+
+
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
+
+class Restaurant_Category:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+
+class Restaurant_Category_Repository:
+    def getAllRestaurantCategory(self):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM RESTAURANT_CATEGORY;    
+                """ 
+
+        cursor.execute(query)
+
+        restaurant_category_objects = dictfetchall(cursor)
+
+        list_restaurant_category= []
+        for i in range(len(restaurant_category_objects)):
+            restaurant_category = Restaurant_Category(restaurant_category_objects[i]['id'], 
+                                            restaurant_category_objects[i]['name']) 
+                                        
+            list_restaurant_category.append(restaurant_category)
+
+        print(list_restaurant_category)
+
+        return list_restaurant_category
+    
+    def getById(self, id):
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM restaurant_category WHERE id = \'{id}\';
+                """
+
+        cursor.execute(query)
+
+        row = cursor.fetchone()
+
+        restaurant_category = Restaurant_Category(row[0], row[1])
+
+        return restaurant_category
+
+
+
+
+
+
+
+
+
 
     
