@@ -141,10 +141,13 @@ class TransactionActor:
     
     def __str__(self):
         return f"Ta Email: {self.email} Password: {self.email}"
+    
+    def add_admin_name(self, faname, laname):
+        self.admin_name = f"{faname} {laname}"
 
 class TransactionActorRepository:
 
-    def getByEmail(self, email):
+    def getByEmailOnly(self, email):
         cursor = connection.cursor()
         query = f"""
                     SELECT * from transaction_actor WHERE email = \'{email}\';
@@ -154,6 +157,24 @@ class TransactionActorRepository:
         ta = TransactionActor(row[0], row[1], row[2], row[3], row[4], row[5])
         print(row)
         print(ta)
+
+        return ta
+
+    # return actor with all derived attr too
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        ta = self.getByEmailOnly(email)
+
+        if ta.adminid is not None:
+
+            query = f"""
+                    SELECT fname, lname from user_acc WHERE email = \'{ta.adminid}\';
+                """
+            cursor.execute(query)
+            row = cursor.fetchone()
+            print(row)
+            ta.add_admin_name(row[0], row[1])
+
         return ta
 
 class Customer:
@@ -190,10 +211,12 @@ class Restaurant:
         self.province = province
         self.rating = rating
         self.rcategory = rcategory
+        self.operating_hours = []
+        self.category = ""
 
 class RestaurantRepository:
 
-    def getByEmail(self, email):
+    def getByEmailOnly(self, email):
         cursor = connection.cursor()
         query = f"""
                     SELECT * FROM restaurant WHERE email = \'{email}\';
@@ -203,5 +226,56 @@ class RestaurantRepository:
         restaurant = Restaurant(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
         print(row)
         return restaurant
+
+    # dapet email dari session, also update restaurant.operating_hours list
+    def getByEmail(self, email):
+        cursor = connection.cursor()
+        restaurant = self.getByEmailOnly(email)
+        
+        if restaurant is not None:
+            # set operating hours
+            query = f"""
+                    SELECT * FROM restaurant_operating_hours WHERE name = \'{restaurant.rname}\' AND branch = \'{restaurant.rbranch}\';
+                """
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            for row in rows:
+                restaurant.operating_hours.append(RestaurantOperatingHours(row[0], row[1], row[2], row[3], row[4]))
+            
+            # set restaurant category using restaurant.rcategory
+            query2 = f"""
+                        SELECT name FROM restaurant_category WHERE id = \'{restaurant.rcategory}\'
+                      """
+            cursor.execute(query2)
+            row = cursor.fetchone()
+            restaurant.category = row[0]
+        print(restaurant.operating_hours)
+        print(restaurant.category)
+        # category belom di set
+        return restaurant
+
+class RestaurantOperatingHours:
+
+    def __init__(self, name, branch, day, starthours, endhours):
+        self.name = name
+        self.branch = branch
+        self.day = day
+        self.starthours = starthours
+        self.endhours = endhours
+
+class RestaurantOperatingHours:
+
+    def __init__(self, name, branch, day, starthours, endhours):
+        self.name = name
+        self.branch = branch
+        self.day = day
+        self.starthours = starthours
+        self.endhours = endhours
+
+class RestaurantCategory:
+
+    def __init__(self, id, name):
+        self.id = id
+
 
     
