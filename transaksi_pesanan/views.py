@@ -69,6 +69,8 @@ def p_addstatus(request):
 # Views Pelanggan
 
 def tambah_transaksi(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     if request.method == "POST":
         form = FormAlamat(request.POST)
         if form.is_valid():
@@ -118,6 +120,8 @@ def tambah_transaksi(request):
     return render(request, 'tambah_pesanan.html', context)
             
 def pilih_restoran(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     if request.method == "POST":
         restaurant = request.POST.get("restoran").split("||")
         request.session["restaurant_name"] = restaurant[0]
@@ -127,6 +131,8 @@ def pilih_restoran(request):
     return render(request, "pilih_restoran.html", context)
 
 def pilih_makanan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     if request.method == "POST":
         food_amount_list = []
         note_list = []
@@ -209,16 +215,26 @@ def pilih_makanan(request):
     return render(request, "pilih_makanan.html", context)
 
 def daftar_pesanan_pelanggan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     return render(request, 'daftar_pesanan_pelanggan.html')
 
 def konfirmasi_pembayaran(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     return render(request, 'konfirmasi_pembayaran.html')
 
 def ringkasan_pesanan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     return render(request, 'ringkasan_pesanan.html')
 
 def pesanan_berlangsung_pelanggan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     return render(request, 'pesanan_berlangsung_pelanggan.html')
 
 def detail_pesanan_pelanggan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     return render(request, 'detail_pesanan_pelanggan.html')
