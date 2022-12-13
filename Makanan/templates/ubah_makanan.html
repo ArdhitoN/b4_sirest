@@ -25,41 +25,44 @@
 </div>
 
 
-<form  method="POST">
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
+
+
+<form  action="{% url 'Makanan:update_makanan' food.FoodName %}" method="POST">
   {% csrf_token %}
     
     <div class="mb-3">
       <label for="namaMakanan" class="form-label" >Nama makanan: </label>
-      <input type="text" class="form-control" id="namaMakanan" name="namaMakanan" disabled value="Ayam goreng">
+      <input type="text" class="form-control" id="namaMakanan" name="foodname" disabled value="{{food.FoodName}}">
       <div id="namaMakananHelp" class="form-text"></div>
     </div>
     
     <div class="mb-3">
       <label for="Deskripsi" class="form-label">Deskripsi: </label>
-      <input type="text" class="form-control" id="Deskripsi" name="Deskripsi" value="Enak">
+      <input type="text" class="form-control" id="Deskripsi" name="description" value="{{food.Description}}">
     </div>
 
         
     <div class="mb-3">
       <label for="Stok" class="form-label">Stok: </label>
-      <input type="number" class="form-control" id="Stok" name="Stok" value="5">
+      <input type="number" class="form-control" id="Stok" name="stock" value="{{food.Stock}}">
     </div>
 
     <div class="mb-3">
       <label for="Harga" class="form-label">Harga: </label>
-      <input type="number" class="form-control" id="Harga" name="Harga" value="10000">
+      <input type="number" class="form-control" id="Harga" name="price" value="{{food.Price}}">
     </div>
   
     
     <div class="mb-3">
       <label for="Harga" class="form-label">Kategori Makanan: </label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected></option>
-        <option value="1" >Seafood</option>
-        <option value="2">Aneka Gorengan&Rebus</option>
-        <option value="3">Sayur Mayur</option>
-        <option value="4" selected>Cemilan</option>
-        <option value="5">Beverages</option>
+      <select class="form-select" aria-label="Default select example" name="fcategory" value="{{food_category_name}}">
+        
+        {% for kategori_makanan in list_kategori_makanan %}
+        <option value="{{kategori_makanan.id}}">{{kategori_makanan.name}}</option>
+        {% endfor %}
       </select>
     </div>
     
@@ -67,15 +70,12 @@
       <label for="Harga" class="form-label">Bahan Makanan: </label>
       <div class="div-inline d-inline-block d-flex flex-row">
         <div class="mb-3" >
-          <select class="form-select" aria-label="Default select example">
-            <option  ></option>
-            <option value="1">Strawberry</option>
-            <option value="2" selected>Apple</option>
-            <option value="3">Rice</option>
-            <option value="4">Butter</option>
-            <option value="5">Chicken</option>
-            <option value="6">Beef</option>
-            <option value="7">Fish</option>
+          <select class="form-select" aria-label="Default select example" name="ingredient">
+            
+            {% for ingredient in list_ingredient %}
+
+            <option value="{{ingredient.id}}">{{ingredient.name}}</option>
+            {% endfor %}
           </select>
         </div>
         <button> - </button>

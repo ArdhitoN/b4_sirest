@@ -13,6 +13,9 @@
 </style>
 {% endblock meta %}
 
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
 
 
 {% block content %}
@@ -48,16 +51,16 @@
             <td>
               <ul>
                 {% for ingredient in food.IngredientName %}
-                  {{ingredient}}
+                  <li>{{ingredient}}</li>
                 {% endfor %}
               </ul>
 
             </td>
 
             <td>
-              <a href="{% url 'Makanan:show_ubah_makanan' %}">Ubah</a>
+              <a href="{% url 'Makanan:show_update_makanan' food.FoodName %}">Ubah</a>
               <br>
-              <a href="{% url 'Makanan:hapus_makanan' %}">Hapus</a>
+              <a href="{% url 'Makanan:hapus_makanan' food.FoodName %}">Hapus</a>
             </td>
           </tr>
 

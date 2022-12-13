@@ -7,8 +7,12 @@ app_name = 'Makanan'
 
 urlpatterns = [
     path('buat_makanan/', show_buat_makanan, name='show_buat_makanan'),
+    path('buat_makanan-logic/', buat_makanan, name='buat_makanan'),
+
     path('daftarMakanan_restoView/', show_makanan_restoView, name='show_makanan_restoView'),
-    path('ubah_makanan/', show_ubah_makanan, name='show_ubah_makanan'),
+    
+    path('update_makanan/<str:FoodName>/', show_update_makanan, name='show_update_makanan'),
+    path('update_makanan-logic/<str:FoodName>/', update_makanan, name='update_makanan'),
 
     path('daftarMakanan_nonRestoView/<str:rname>/<str:rbranch>/', show_makanan_nonRestoView, name='show_makanan_nonRestoView'),
 
@@ -17,7 +21,7 @@ urlpatterns = [
     path('daftar_restoran/', show_daftar_restoran, name='show_daftar_restoran'),
     
 
-    path('hapus_makanan/', hapus_makanan, name='hapus_makanan'),
+    path('hapus_makanan/<str:FoodName>/', hapus_makanan, name='hapus_makanan'),
 
 
 
