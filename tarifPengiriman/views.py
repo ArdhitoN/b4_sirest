@@ -24,7 +24,7 @@ from authentication.models import *
 from .models import *
 
 # Create your views here.
-def show_buat_tarif(request, message=""):
+def show_buat_tarif(request, message=False):
 
     if 'user_email' not in request.session:
         return redirect('/authentication/login')
@@ -33,7 +33,7 @@ def show_buat_tarif(request, message=""):
     if(not uar.isAdmin(request.session.get('user_email'))):
         return redirect('/authentication/login')
 
-    context = {'message': message}
+    context = {'error_msg': message}
     return render(request, "buat_tarif.html", context)
 
 
@@ -51,6 +51,10 @@ def buat_tarif(request):
         province = request.POST["province"]
         motorfee = request.POST["motorfee"]
         carfee = request.POST["carfee"]
+
+        if province == "" or motorfee == "" or carfee == "":
+            return show_buat_tarif(request, "Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.")
+
 
         tarif_repo = TarifPengirimanRepository()
         queryResult = tarif_repo.createTarifPengiriman(province, motorfee, carfee)
