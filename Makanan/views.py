@@ -24,7 +24,17 @@ from .models import *
 
 # Create your views here.
 def show_buat_makanan(request, error_msg=False, ingredient_input_counter = 1):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()
+
+    if(not uar.isRestaurant((request.session.get('user_email')))):
+        return redirect('/authentication/login')
+    
     #TODO: ambil kategori makanan 
+
+
     kategori_makanan_repo = Food_Category_Repository()
     list_kategori_makanan = kategori_makanan_repo.getAllFoodCategory()
 
@@ -44,7 +54,15 @@ def show_buat_makanan(request, error_msg=False, ingredient_input_counter = 1):
 
 
 def buat_makanan(request):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     
+
+    uar = UserAccRepository()
+
+    if(not uar.isRestaurant((request.session.get('user_email')))):
+        return redirect('/authentication/login')
+
     print("sadasda")
     if request.method == "POST":
 
@@ -85,6 +103,14 @@ def buat_makanan(request):
 
 
 def show_update_makanan(request, FoodName, error_msg=False):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()
+
+    if(not uar.isRestaurant((request.session.get('user_email')))):
+        return redirect('/authentication/login')
+
     email = request.session.get('user_email')
     Restaurant_Repo = RestaurantRepository()
 
@@ -125,6 +151,13 @@ def show_update_makanan(request, FoodName, error_msg=False):
 
 
 def update_makanan(request, FoodName):
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+
+    uar = UserAccRepository()
+
+    if(not uar.isRestaurant((request.session.get('user_email')))):
+        return redirect('/authentication/login')
 
     if request.method == "POST":
 
@@ -174,6 +207,15 @@ def update_makanan(request, FoodName):
 
 
 def hapus_makanan(request, FoodName):
+
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()
+
+    if(not uar.isRestaurant((request.session.get('user_email')))):
+        return redirect('/authentication/login')
+
     if request.method == "GET":
         email = request.session.get('user_email')
         Restaurant_Repo = RestaurantRepository()
@@ -206,8 +248,22 @@ def hapus_makanan(request, FoodName):
             return show_makanan_restoView(request, queryResult)
 
 
+
+
+
 def show_makanan_restoView(request, error_msg = False):
+
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+
+    
+    uar = UserAccRepository()
+
+    if(not uar.isRestaurant((request.session.get('user_email')))):
+        return redirect('/authentication/login')
+
     email = request.session.get('user_email')
+
     Restaurant_Repo = RestaurantRepository()
     
     
@@ -242,6 +298,10 @@ def show_makanan_restoView(request, error_msg = False):
 
 
 def show_makanan_nonRestoView(request, rname, rbranch):
+
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+
     food_repo = FoodRepository()
     list_makanan = food_repo.getAllRestaurantFood(rname, rbranch)
 
@@ -270,6 +330,10 @@ def show_makanan_nonRestoView(request, rname, rbranch):
 
 
 def show_detail_resto(request, rname, rbranch):
+
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+
     restoran_repo = RestaurantRepository()
     restoran = restoran_repo.getByRnameAndRbranch(rname, rbranch)
 
@@ -284,19 +348,31 @@ def show_detail_resto(request, rname, rbranch):
 
     #TODO : FILTER BERDASARKAN WAKTU
     list_promo_restoran = promo_restoran_repo.getAllRestaurantPromo(rname, rbranch)
+    
+    list_promo_restoran_fix = []
+
+    time = datetime.datetime.now()
+
+    for promo in list_promo_restoran:
+        if(promo.start < time and promo.promoend > time) :
+            list_promo_restoran_fix.append(promo)
 
     # print(list_promo_restoran)
 
     context = {'restoran': restoran,
                 'kategori_restoran': kategori_restoran,
                 'list_restoran_opHours' : list_restoran_opHours,
-                'list_promo_restoran': list_promo_restoran
+                'list_promo_restoran': list_promo_restoran_fix
                 }
     return render(request, "detail_resto.html", context)
 
 
 
 def show_daftar_restoran(request):
+
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+
     restoran_repo = RestaurantRepository()
     
     list_restoran = restoran_repo.getAll()

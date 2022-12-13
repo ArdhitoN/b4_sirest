@@ -13,7 +13,9 @@
 </style>
 {% endblock meta %}
 
-
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
 
 {% block content %}
   

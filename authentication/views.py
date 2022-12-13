@@ -164,7 +164,7 @@ def register_restoran(request):
         
         name = request.POST["name"]
         fname = name.split()[0]
-        lname = name.split()[1] if len(name.split()) != 1 else " "
+        lname = name.split()[-1] if len(name.split()) != 1 else " "
 
         phonenum = request.POST["phonenum"]
         nik = request.POST["nik"]
@@ -224,7 +224,7 @@ def register_kurir(request):
         
         name = request.POST["name"]
         fname = name.split()[0]
-        lname = name.split()[1] if len(name.split()) != 1 else " "
+        lname = name.split()[-1] if len(name.split()) != 1 else " "
 
         phonenum = request.POST["phonenum"]
         nik = request.POST["nik"]

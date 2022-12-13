@@ -49,7 +49,7 @@
               <a class="dropdown-item" href="#">Buat Bahan Makanan</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">Daftar Restoran dan Makanan</a>
+              <a class="dropdown-item" href="{% url 'Makanan:show_daftar_restoran' %}">Daftar Restoran dan Makanan</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
           </ul>
@@ -86,12 +86,12 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="#"
+              <a class="dropdown-item" href="{% url 'tarifPengiriman:show_daftar_tarif' %}"
                 >Daftar Tarif Pengiriman per KM</a
               >
             </li>
             <li>
-              <a class="dropdown-item" href="#">Buat Tarif Pengiriman per KM</a>
+              <a class="dropdown-item" href="{% url 'tarifPengiriman:show_buat_tarif' %}">Buat Tarif Pengiriman per KM</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
           </ul>
