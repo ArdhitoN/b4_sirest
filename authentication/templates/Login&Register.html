@@ -1,3 +1,27 @@
-<h1>SIREST - B4</h1>
+<!-- <h1>SIREST - B4</h1>
 <button>LOGIN</button>
-<button>REGISTER</button>
+<button>REGISTER</button> -->
+{% extends 'base.html' %} {% block content %}
+<div
+  class="container my-5 px-5"
+>
+  {% csrf_token %}
+  <div class="row row-cols-1">
+    <div class="col text-center mb-2">
+      <h4>SIREST - B4</h4>
+    </div>
+    <div class="col text-center">
+        <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+        <button type="button" class="btn btn-primary" onclick="register()">Register</button>
+  </div>
+</form>
+<script>
+  function login() {
+    window.location.href = '/authentication/login/';
+  }
+
+  function register() {
+    window.location.href = '/authentication/register-all/';
+  }
+</script>
+{% endblock content %}
