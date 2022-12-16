@@ -1,6 +1,8 @@
 from django.urls import path
 from transaksi_pesanan.views import *
 
+app_name = 'transaksi_pesanan'
+
 urlpatterns = [
     # resto
     path('', p_berlangsung, name='rpesanan_index'),

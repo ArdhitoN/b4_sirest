@@ -21,60 +21,58 @@
 </div>
 
 
-<form method="POST">
+
+{% if error_msg %}
+  <h2>{{error_msg}}</h2>
+{% endif %}
+
+
+<form action="{% url 'Makanan:buat_makanan' %}" method="POST">
   {% csrf_token %}
     
     <div class="mb-3">
       <label for="namaMakanan" class="form-label" >Nama makanan: </label>
-      <input type="text" class="form-control" id="namaMakanan" name="namaMakanan">
+      <input type="text" class="form-control" id="namaMakanan" name="foodname">
       <div id="namaMakananHelp" class="form-text"></div>
     </div>
     
     <div class="mb-3">
       <label for="Deskripsi" class="form-label">Deskripsi: </label>
-      <input type="text" class="form-control" id="Deskripsi" name="Deskripsi">
+      <input type="text" class="form-control" id="Deskripsi" name="description">
     </div>
 
         
     <div class="mb-3">
       <label for="Stok" class="form-label">Stok: </label>
-      <input type="number" class="form-control" id="Stok" name="Stok">
+      <input type="number" class="form-control" id="Stok" name="stock">
     </div>
 
     <div class="mb-3">
       <label for="Harga" class="form-label">Harga: </label>
-      <input type="number" class="form-control" id="Harga" name="Harga">
+      <input type="number" class="form-control" id="Harga" name="price">
     </div>
   
     
     <div class="mb-3">
-      <label for="Harga" class="form-label">Kategori Makanan: </label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected></option>
-        <option value="1">Seafood</option>
-        <option value="2">Aneka Gorengan&Rebus</option>
-        <option value="3">Sayur Mayur</option>
-        <option value="4">Cemilan</option>
-        <option value="5">Beverages</option>
+      <label for="FCategory" class="form-label">Kategori Makanan: </label>
+      <select class="form-select" aria-label="Default select example" name="fcategory">
+        {% for kategori_makanan in list_kategori_makanan%}
+        <option value="{{kategori_makanan.id}}">{{kategori_makanan.name}}</option>
+        {% endfor %}
       </select>
     </div>
     
     
     <div class="mb-3 bahanMakanan-add" id="bahanMakanan-add">
-      <label for="Harga" class="form-label">Bahan Makanan: </label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected></option>
-        <option value="1">Strawberry</option>
-        <option value="2">Apple</option>
-        <option value="3">Rice</option>
-        <option value="4">Butter</option>
-        <option value="5">Chicken</option>
-        <option value="6">Beef</option>
-        <option value="7">Fish</option>
+      <label for="ingredient" class="form-label">Bahan Makanan: </label>
+      <select class="form-select" aria-label="Default select example" name="ingredient">
+        {% for ingredient in list_ingredient %}
+        <option value="{{ingredient.id}}">{{ingredient.name}}</option>
+        {% endfor %}
       </select>
     </div>
-
-    <input type="submit" onclick="refresh()" value="+">    
+    
+    <input type="button" onclick="refresh()" value="+">
 
     <br>
     
@@ -95,19 +93,14 @@
         htmlString += `\n
           <div class="mb-3">
             <label for="Harga" class="form-label">Bahan Makanan: </label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected></option>
-              <option value="1">Strawberry</option>
-              <option value="2">Apple</option>
-              <option value="3">Rice</option>
-              <option value="4">Butter</option>
-              <option value="5">Chicken</option>
-              <option value="6">Beef</option>
-              <option value="7">Fish</option>
+            <select class="form-select" aria-label="Default select example" name="ingredient">
+              {% for ingredient in list_ingredient %}
+              <option value="{{ingredient.id}}">{{ingredient.name}}</option>
+              {% endfor %}
             </select>
           </div>
           `;
-        document.getElementById("bahanMakanan-add").innerHTML += htmlString;
+        document.getElementById("bahanMakanan-add").innerHTML = htmlString;
   }
 
   // function addTodo() {

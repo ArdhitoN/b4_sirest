@@ -17,12 +17,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+          <a class="nav-link active" aria-current="page" href="/authentication/logged_restaurant/">Dashboard</a>
         </li>
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
-            href="#"
+            href="{% url 'jam_daftar' %}"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
@@ -32,9 +32,9 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="#">Daftar Jam Operasional </a>
+              <a class="dropdown-item" href="{% url 'jam_daftar' %}">Daftar Jam Operasional </a>
             </li>
-            <li><a class="dropdown-item" href="#">Buat Jam Operasional</a></li>
+            <li><a class="dropdown-item" href="{% url 'jam_buat' %}">Buat Jam Operasional</a></li>
           </ul>
         </li>
 
@@ -50,8 +50,8 @@
             Makanan
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Daftar Makanan </a></li>
-            <li><a class="dropdown-item" href="#">Buat Makanan</a></li>
+            <li><a class="dropdown-item" href="{% url 'Makanan:show_makanan_restoView' %}">Daftar Makanan </a></li>
+            <li><a class="dropdown-item" href="{% url 'Makanan:show_buat_makanan' %}">Buat Makanan</a></li>
           </ul>
         </li>
 
@@ -67,10 +67,11 @@
             Pesanan
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Pesanan Berlangsung</a></li>
+            <li><a class="dropdown-item" href="/transaksi_pesanan/">Pesanan Berlangsung</a></li>
             <li><a class="dropdown-item" href="#">Riwayat Pesanan</a></li>
           </ul>
         </li>
+        
 
         <li class="nav-item dropdown">
           <a
@@ -90,11 +91,11 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">RestoPay</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'restopay-index' %}">RestoPay</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Logout</a>
+          <a class="nav-link active" aria-current="page" href="/">Logout</a>
         </li>
       </ul>
     </div>

@@ -47,6 +47,34 @@ class TarifPengirimanRepository:
         # print(list_tarif_pengiriman)
 
         return list_tarif_pengiriman
+
+
+    def createTarifPengiriman(self, province, motorfee, carfee):
+        
+        cursor = connection.cursor()
+        
+        query = f"""
+                    SELECT * FROM DELIVERY_FEE_PER_KM;    
+                """ 
+
+        cursor.execute(query)
+
+        banyak_tarif_pengiriman = len(dictfetchall(cursor))
+
+
+        query = f"""
+                    INSERT INTO DELIVERY_FEE_PER_KM
+                    VALUES ('{banyak_tarif_pengiriman}','{province}', {motorfee} , {carfee});
+                    ;    
+                """ 
+        
+        
+        try:
+            cursor.execute(query)
+            return True
+            
+        except Exception as error:
+            return error
     
 
 
@@ -76,7 +104,10 @@ class TarifPengirimanRepository:
                     WHERE id= '{id}'
                     ;    
                 """ 
-        
-        cursor.execute(query)
-        return True
+        try:
+            cursor.execute(query)
+            return True
+        except Exception as e:
+            return e
+            
             

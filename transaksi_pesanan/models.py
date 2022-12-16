@@ -279,3 +279,12 @@ class Courier:
 #             return courier
 #         except Exception as e:
 #             print("Error at getbyemail courier")
+
+class Food:
+    def __init__(self, name, description, stock, price, category):
+        self.name = name
+        self.description = description
+        self.stock = stock
+        self.price = price
+        self.category = category
+
