@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+    <body>
+      {% block content %}
+    <h1 > Riwayat Kurir  : <br> </h1>
+    <!-- <h3 > <a href="url">[Tambah  Promo ]</a> </h3> -->
+        
+    <!-- <p > Daftar Promo restoran : </p>     -->
+    <table class = "table bordered-table"> 
+      <thead class="table-success">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Nama Restoran</th>
+          <th scope="col">Nama Pelanggan</th>
+          <th scope="col">Waktu Pesanan Dibuat</th>
+          <th scope="col">Status Pesanan</th>
+          <!-- <th scope="col">Rating</th> -->
+          <th scope="col">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for detail in daftar %}
+           <tr>
+           <th scope="row">{{ forloop.counter }}</th>
+           <td>{{detail.rname}} {{detail.rbranch}}</td>
+           <td>{{detail.pfname}} {{detail.plname}}</td>
+           <td>{{detail.datetime}}</td>
+           <td>{{detail.name}}</td>
+           <!-- <td>{{detail.rating}}</td> -->
+           <!-- {% if promo.used %} -->
+             <!-- <td><a class="pe-auto" href="url">Ubah</a><br> <a class="pe-auto" href="url">detail</a> -->
+           <!-- {% else %} -->
+             <td><a class="pe-auto" href="{% url 'Riwayat:detail' detail.email detail.datetime %}">detail</a><br> </td>
+           <!-- {% endif %} -->
+        {% endfor %}
+       </tbody>
+   </table>
+  
+    {% endblock %}
+    </body>

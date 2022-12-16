@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+  {% for detail in daftar%}
+    <h1> Detail Pesanan </h1>
+    <p> Waktu Pesanan : {{detail.datetime}} </p>
+    <p> Nama Pelanggan : {{detail.pfname}} {{detail.plname}} </p>
+    <p>Jalan: {{detail.street}}</p>
+    <p> Kecamatan:{{detail.district}}</p>
+    <p> Kota: {{detail.city}}</p>
+    <p> Provinsi: {{detail.province}}</p>
+
+    <p> Restoran: {{detail.rname}} {{detail.rbranch}} </p>
+    <p> Jalan: {{detail.street2}}</p>
+    <p> Kecamatan: {{detail.district2}}</p>
+    <p> Kota: {{detail.city2}}</p>
+    <p> Provinsi: {{detail.province2}}</p>
+        
+    <p>  Makanan yang dipesan: {{detail.foodname}} - {{detail.note}}</p>
+    <!-- <p> Kopi Susu - Tanpa es batu</p> -->
+    <p>  Total Harga Makanan: {{detail.totalfood}}</p>
+    <p>  Total Diskon:{{detail.totaldiscount}}</p>
+    <p>  Biaya Pengantaran: {{detail.deliveryfee}}</p>
+    <p>  Total Biaya: {{detail.totalprice}}</p>
+     <p>   Jenis Pembayaran: {{detail.pmname}}</p>
+        
+    <p>  Status Pembayaran: {{detail.psname}}</p>
+    <p>  Status Pesanan: {{detail.tsname}}</p>
+        
+    <p>  Kurir:{{detail.kfname}} {{detail.klname}}</p>
+    <p> Plat Kendaraan: {{detail.platenum}}</p>
+    <p> Jenis Kendaraan: {{detail.vehicletype}}</p>
+    <p> Merk Kendaraan: {{detail.vehiclebrand}}</p>
+    {% endfor %}
+    <table style = "border: 1px solid black;" >
+        <tr style = "border: 1px solid black;">
+          <th style = "border: 1px solid black;">Status</th>
+          <th style = "border: 1px solid black;">TimeStamp</th>
+        </tr>
+        {% for detail2 in daftar2%}
+        <tr style = "border: 1px solid black;">
+          <td style = "border: 1px solid black;">{{detail2.tsname}}</td>
+          <td style = "border: 1px solid black;">{{detail2.datetime}} </td>
+        </tr>
+        {% endfor %}
+
+      </table>
+       
+    <button type="button" class="btn btn-primary justify-content-center"><a href="{% url 'Riwayat:back' %}">Kembali</a></button>
+     
+
+    
+</body>
+{% endblock content %}
