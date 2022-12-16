@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% block content %}
+{% for promo in promolist %}
+<style> p.solid {border-style: solid;}</style>
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-group row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Nama Promo : </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control-plaintext" id="Nama" }>
+      </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Jenis Promo : </label>
+        <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{promo.jenis}}>
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Discount (%) : </label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="kuantitas" placeholder="kuantitas" name = "kuantitas">
+      </div>
+    </div>
+    {% if promo.tanggal %}
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Tanggal Berlangsung : </label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="tanggal" placeholder="tanggal" name = "tanggal">
+        </div>
+    </div>
+    {% else %}
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Minimal Transaksi : </label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="mintrans" placeholder="mintrans" name = "mintrans">
+        </div>
+    </div>
+    {% endif %}
+   
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Tanggal Awal Berlaku : </label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="start" placeholder="start" name = "start">
+        </div>
+    </div>
+   
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Tanggal Berakhir Berlaku : </label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="end" placeholder="end" name = "end">
+        </div>
+    </div>
+   
+
+    <div><button type="submit">Simpan</button></div>
+
+
+  </form>
+{% endfor %}
+{% endblock %}

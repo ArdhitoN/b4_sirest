@@ -54,6 +54,9 @@ INSTALLED_APPS = [
     'dashboard',
     'kategori_restoran',
     'bahan_makanan',
+    'PromoRestoran',
+    'Promo',
+    'Riwayat',
 ]
 
 # to use session

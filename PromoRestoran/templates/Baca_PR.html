@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+    <body>
+      {% block content %}
+    <h1 > Daftar Promo Restoran : <br> </h1>
+    <h3 > <a href="url">[Tambah  Promo ]</a> </h3>
+        
+    <p > Daftar Promo restoran : </p>    
+    <table class = "table bordered-table"> 
+      <thead class="table-success">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Nama Promo</th>
+          <th scope="col">Periode Promo</th>
+          <th scope="col">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for promo in PResto %}
+           <tr>
+           <th scope="row">{{ forloop.counter }}</th>
+           <td>{{promo.name}}</td>
+           <td>{{promo.start}} s.d. {{promo.promoend}}</td>
+           <!-- {% if promo.used %} -->
+             <td><a class="pe-auto" href="url">Ubah</a><br> <a class="pe-auto" href="url">detail</a>
+           <!-- {% else %} -->
+             <td><a class="pe-auto"href="url">Ubah</a><br> <a class="pe-auto" href="url">detail</a><br> <a class="pe-auto" href="url">hapus</a></td>
+           <!-- {% endif %} -->
+        {% endfor %}
+       </tbody>
+   </table>
+  
+    {% endblock %}
+    </body>
