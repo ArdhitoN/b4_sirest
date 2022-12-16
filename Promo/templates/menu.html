@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+    <body>
+      {% block content %}
+    <h1 > Promo Sirest <br> </h1>
+    <h3 > <a href="{% url 'Promo:Baca_Admin' %}">[Daftar Promo]</a> </h3>
+    <h3 > <a href="{% url 'Promo:buat_promoHS' %}">[Tambah  Promo Special Day ]</a> </h3>
+    <h3 > <a href="{% url 'Promo:buat_promoMT' %}">[Tambah  Promo Min Transaksi ]</a> </h3>
+    <!-- <h3 > <a href="{% url 'Promo:Baca_Restaurant' %}">[Daftar Promo (Restaurant)]</a> </h3> -->
+
+    {% endblock %}

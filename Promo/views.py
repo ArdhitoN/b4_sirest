@@ -1,121 +1,174 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 # from rest_framework.fields import JSONField
 # from rest_framework.utils import json
-from .forms import *
+from django.db import connection
 from .models import *
 from django.views.generic import ListView, DetailView,TemplateView,View
 # Create your views here.
 # Create your views here.
 from itertools import chain
-def Buat_Promo(request):
-    # current_user = auth.get_user(request)
+from authentication.models import *
 
-    
-    # if(not current_user.is_admin):
-    #     return redirect('authentication:login')
 
-    context = {}
-    return render(request, "Buat_Promo.html", context)
-
-def Form_MinimumTransaksi_Promo(request):
-
-    context = {}
-    return render(request, "Form_MinimumTransaksi_Promo.html", context)
-
-def Form_HariSpesial_Promo(request):
-
-    context = {}
-    return render(request, "Form_HariSpesial_Promo.html", context)
-
-def Daftar_Promo(request):
-    # current_user = auth.get_user(request)
-
-    
-    # if(not current_user.is_admin):
-    #     return redirect('authentication:login')
-
-    context = {}
-    return render(request, "Daftar_Promo.html", context)
-
-def Detail_MinimumTransaksi_Promo(request) :
-    
-    context = {}
-    return render(request, "Detail_MinimumTransaksi_Promo.html")
-
-def Detail_HariSpesial_Promo(request) :
-    
-    context = {}
-    return render(request, "Detail_HariSpesial_Promo.html")
-
-def Daftar_Promo_restoran(request) :
+def list_promo(request) :
+    # role = request.session.get('role')
+     if 'user_email' not in request.session:
+        return redirect('/authentication/login')
         
-        context = {}
-        return render(request, "Daftar_Promo_restoran.html")
+     uar = UserAccRepository()
+     if( uar.isAdmin(request.session.get('user_email'))):
+        promo_repo = PromoRepository()
+        categories = promo_repo.get_all()
+        context = {"Promolist" : categories}
+        return render(request, 'Baca_Admin.html', context)
 
-def Form_Ubah_PromoMinTransaksi(request) :
-        
-        context = {}
-        return render(request, "Form_Ubah_PromoMinTransaksi.html", context)
+     elif ( uar.isRestaurant(request.session.get('user_email'))): 
+        promo_repo = PromoRepository()
+        categories = promo_repo.get_all()
+        context = {"Promolist" : categories}
+        return render(request, 'Baca_Restaurant.html', context)
+     else :
+        return redirect('/authentication/login')
 
-def Form_Ubah_PromoHS(request) :
-    context = {}
+
+def buat_HS(request) :
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
     
-    return render(request, "Form_Ubah_PromoHS.html", context)
+    uar = UserAccRepository()    
 
-def buat_promoMT(request) :
-    submitted = False
-    response ={}
-    form = Form__PromoMT(request.POST, initial= {'Jenis_promo' : 'Minimum Transaksi'})
-
-    if request.method == 'POST':
-        if form.is_valid():
-           form.save()
+    if( not uar.isAdmin(request.session.get('user_email'))):
+        return redirect('/authentication/login')
+    if request.method == "POST":
+        nama_promo = request.POST.get("nama_promo")
+        kuantitas =  request.POST.get("kuantitas")
+        if (kuantitas  == ""):
+            messages.info(request, "Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.")
+        else :
+            kuantitas = int(kuantitas)
+            if (kuantitas < 1 or kuantitas > 100) :
+                 messages.info(request, "persentase diskon harus di antara 1 hingga 100")
+        tanggal = request.POST.get("tanggal")
+        if (nama_promo == "" or tanggal == ""):
+            messages.info(request, "Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.")
         
-            # return HttpResponseRedirect('/Daftar_relawan/?submitted=True')
+
+        else:
+            promo_repo = PromoRepository()
+
+            # if (promo_repo.check_promo(nama_promo) == True) :
+            #     messages.info(request, "Nama Promo sudah ada, silakan gunakan nama promo yang lain")
+            promo_repo.insertHS(nama_promo,kuantitas,tanggal)
+            # category_repo = FoodCategoryRepository()
+            # category_repo.add_category(nama_kategori)
+            return redirect("Promo:Baca_Admin")
+            # return render(request, 'Buat_PromoHS.html',)
     else :
-        form = Form__PromoMT(initial= {'Jenis_promo' : 'Minimum Transaksi Promo'})
-        if 'submitted' in request.GET :
-            submitted = True
+        return render(request, 'Buat_PromoHS.html')
 
-        # return redirect('/Daftar_relawan/selesai')
-    response['form']= form
-    response['submitted'] = submitted
-    return render(request,'Form_MinimumTransaksi_Promo.html',response)
 
-def buat_promoHS(request) :
-    submitted = False
-    response ={}
-    form = Form__PromoHS(request.POST, initial= {'Jenis_promo' : 'Special Day Promo', 'Tanggal_berlangsung' : '01/01/1875'})
-    if request.method == 'POST':
-        if form.is_valid():
-            instance = form.save()
-            instance.Jenis_promo = 'Special Day Promo'
-            # return HttpResponseRedirect('/Daftar_relawan/?submitted=True')
+def buat_MT(request) :
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()    
+    
+    if( not uar.isAdmin(request.session.get('user_email'))):
+        return redirect('/authentication/login')
+
+    if request.method == "POST":
+        nama_promo = request.POST.get("nama_promo")
+        kuantitas =  request.POST.get("kuantitas")
+        if (kuantitas  == ""):
+            messages.info(request, "Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.")
+        else :
+            kuantitas = int(kuantitas)
+            if (kuantitas < 1 or kuantitas > 100) :
+                 messages.info(request, "persentase diskon harus di antara 1 hingga 100")
+        mintrans = request.POST.get("mintrans")
+        if (nama_promo == "" or mintrans== ""):
+            messages.info(request, "Data yang diisikan belum lengkap, silakan lengkapi data terlebih dahulu.")
+        
+
+        else:
+            promo_repo = PromoRepository()
+
+            # if (promo_repo.check_promo(nama_promo) == True) :
+            #     messages.info(request, "Nama Promo sudah ada, silakan gunakan nama promo yang lain")
+            promo_repo.insertMT(nama_promo,kuantitas,mintrans)
+            # category_repo = FoodCategoryRepository()
+            # category_repo.add_category(nama_kategori)
+            return redirect("Promo:Baca_Admin")
+            # return render(request, 'Buat_PromoHS.html',)
     else :
-        form = Form__PromoHS(initial= {'Jenis_promo' : 'Special Day Promo'})
-        if 'submitted' in request.GET :
-            submitted = True
+        return render(request, 'Buat_PromoMT.html')
 
-        # return redirect('/Daftar_relawan/selesai')
-    response['form']= form
-    response['submitted'] = submitted
-    return render(request,'Form_HariSpesial_Promo.html',response)
-
-class Daftar_Promo2(ListView):
+def detailpromo(request,id) :
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()    
+    
+    # if( not uar.isAdmin(request.session.get('user_email')) or not uar.isRestaurant(request.session.get('user_email')) ):
+    
+    #     return redirect('/authentication/login')
    
-    model=Model_Promo2
-    template_name = "Daftar_Promo.html"
+    promo_repo = PromoRepository()
+    promo = promo_repo.detail_promo(id)
+    context = {"promolist" : promo}
+    
+    print(promo[0].id)
+    return render(request, 'Detail_Promo2.html', context)
 
+def ubahpromo(request,id) :
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()    
+    
+    if( not uar.isAdmin(request.session.get('user_email'))):
+        return redirect('/authentication/login')
 
-def DashboardKurir(request) :
+    promo_repo = PromoRepository()
+    promo = promo_repo.detail_promo(id)
+    context = {"promolist" : promo}
+    print(promo)
+    if (request.method == "POST"):
+        id = promo[0].id
+        tanggal_awal = promo[0].tanggal
+        mintrans_awal = promo[0].mintrans
+        kuantitas =  request.POST.get("kuantitas")
+        tanggal = request.POST.get("tanggal")
+        mintrans = request.POST.get("mintrans")
+        print("masuk")
+        promo_repo.ubah(id,tanggal_awal,mintrans_awal,kuantitas,tanggal,mintrans)
 
+        return redirect("Promo:Baca_Admin")
+    else :
 
-    return render(request, 'Dashboard_kurir2.html')
+        return render(request,'ubah_promo.html',context)
 
-def DashboardAdmin(request) :
+def buatpromo(request) :
+    return render(request, 'menu.html',)
 
+# def detailpromo2(request) :
+#     return render(request, 'Detail_Promo2.html')
+def deletepromo(request,id) :
+    if 'user_email' not in request.session:
+        return redirect('/authentication/login')
+    
+    uar = UserAccRepository()    
+    
+    if( not uar.isAdmin(request.session.get('user_email'))):
+        return redirect('/authentication/login')
 
-    return render(request, 'Dashboard_Admin.html')
+    promo_repo = PromoRepository()
+    promo_repo.delete_promo(id)
+    # context = {"promolist" : promo}
+    
+    # print(promo[0].id)
+    return redirect("Promo:Baca_Admin")

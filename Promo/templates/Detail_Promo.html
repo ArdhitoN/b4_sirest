@@ -1,7 +1,9 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
-        <title>Phoenix editor</title>
+        <title>detail_promo</title>
         <link rel="stylesheet" href="styles.css" />
         <link
             href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,500,600,800"
@@ -13,34 +15,47 @@
     </head>
 
     <body>
-  <form>
+  <!-- <form> -->
+    {% for promo in promolist %}
   <div class="form-group">
     <label class="mr-sm-2" for="inlineFormCustomSelect">Jenis Promo</label>
-      <p type="text" class="form-control" id="inlineFormCustomSelect" >Promo Minimum Transaksi</p>
+      <span><p type="text" class="form-control" id="inlineFormCustomSelect" > {{promo.jenis}}</p></span>
     </div>
     <div class="form-group">
     <label for="formGroupExampleInput">NamaPromo</label>
-    <p type="text" class="form-control" id="formGroupExampleInput" > B3LANJA 3 AJA    </p>
+    <p type="text" class="form-control" id="formGroupExampleInput" > {{promo.name}}</p>
   </div>
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
            <div class="col-md-6 col-sm-6 col-xs-12"> 
             <label for="quantity">Jumlah Diskon (1 hingga 100 ):</label>
-            <p type="number" class="form-control" id="quantity" > 30</p>
+            <p type="number" class="form-control" name ="kuantitas" id="quantity" > {{promo.kuantitas}}</p>
         </div>
-        
-   <div class="bootstrap-iso">
- <div class="container-fluid">
-  <div class="row">
-   <div class="col-md-6 col-sm-6 col-xs-12">
-       <label for="tanggal"> Minimum Transaksi: </label>
-        <!-- <input type="date" id="Start Date" name="Start Date"> -->
-        <p type="number" class="form-control" id="tanggal" > 3</p>
- </div>
+  {% if promo.tanggal %}
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-12">
+          <label for="tanggal"> Tanggal mulai Transaksi: </label>
+            <p type="date" class="form-control" id="tanggal" > {{promo.tanggal}}</p>
     </div>
-  </div>
-      
+        </div>
+      </div>
+  {% else %}
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-12">
+          <label for="mintrans"> Minimum Transaksi: </label>
+            <p type="number" class="form-control" id="tanggal" > {{promo.mintrans}}</p>
+    </div>
+        </div>
+      </div>
+  {% endif %}
+
+  {% endfor %}
+  <div><button><a href="{% url 'Promo:Baca_Admin' %}" ></a>Kembali</button></div>
+
+  
 </form>
-        
+      
     </body>
 </html>

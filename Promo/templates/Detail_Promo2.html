@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% block content %}
+{% for promo in promolist %}
+<style> p.solid {border-style: solid;}</style>
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Nama Promo  : </label>
+    <span><p class = "solid">{{promo.name}}</p></span>
+  </div>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Jenis Promo  : </label>
+    <span><p class = "solid">{{promo.jenis}}</p></span>
+  </div>
+
+  <div class="form-group">
+    <label for="formGroupExampleInput">Jumlah diskon  : </label>
+    <span><p type = "number" class = "solid">{{promo.quantity}}</p></span>
+  </div>
+  {% if promo.tanggal %}
+  <div class="form-group">
+    <label for="formGroupExampleInput">Tanggal Hari Spesial  : </label>
+    <span><p type = "number" class = "solid">{{promo.tanggal}}</p></span>
+  </div>
+
+  {% else %}
+  <div class="form-group">
+    <label for="formGroupExampleInput">Minimal Transaksi  : </label>
+    <span><p type = "number" class = "solid">{{promo.mintrans}}</p></span>
+  </div>
+  {% endif %}
+  <!-- <div class="form-group">
+    <label for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+  </div> -->
+  <button><a href="{% url 'Promo:Baca_Admin'%}">Kembali</a></button>
+</form>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+    <body>
+      {% block content %}
+    <h1 > Daftar Promo (POV Restaurant)<br> </h1>
+    <!-- <h3 > <a href="url">[Tambah  Promo ]</a> </h3> -->
+        
+        
+    <<table class = "table bordered-table"> >
+      <thead class="table-success">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Nama Promo</th>
+          <th scope="col">Jenis Promo</th>
+          <th scope="col">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for promo in Promolist %}
+           <tr>
+           <th scope="row">{{ forloop.counter }}</th>
+           <td>{{promo.name}}</td>
+           <td>{{promo.jenis}}</td>
+           {% if promo.used %}
+             <td> <a class="pe-auto" href="{% url 'Promo:detail_promo' promo.id%}">detail</a>
+           {% else %}
+             <td> <a class="pe-auto" href="{% url 'Promo:detail_promo' promo.id%}">detail</a></td>
+           {% endif %}
+        {% endfor %}
+       </tbody>
+   </table>
+  
+    {% endblock %}
+    </body>
