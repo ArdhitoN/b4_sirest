@@ -28,7 +28,7 @@ print(PRODUCTION)
 SECRET_KEY = 'django-insecure-3@5wx%(^*zl68l(o$^m-3%cvjv0g&mom1ra=oj5f048_al57s7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 APP_NAME = "sirest-b4";
@@ -74,8 +74,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if not DEBUG :
-    CSRF_TRUSTED_ORIGINS = ['https://web-production-0ed7.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://web-production-0ed7.up.railway.app']
 
 ROOT_URLCONF = 'project_django.urls'
 
