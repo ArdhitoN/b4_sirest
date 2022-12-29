@@ -140,6 +140,27 @@ class UserAccRepository:
             print("none: restaurant")
             return False
 
+    def isCourier(self, email):
+        # setelah check is user exist
+        cursor = connection.cursor()
+        query = f"""
+                    SELECT * FROM user_acc U
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM transaction_actor TA
+                        JOIN courier C ON TA.email = C.email
+                        AND U.email = TA.email
+                        AND U.email = \'{email}\'
+                    );
+                """
+        cursor.execute(query)
+        row = cursor.fetchone()
+
+        if row is not None:
+            return True
+        else:
+            print("none: courier")
+            return False
         
     def createUserAcc(self, email, password, phonenum, fname, lname):
         cursor = connection.cursor()

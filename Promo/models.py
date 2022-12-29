@@ -59,8 +59,14 @@ class PromoRepository:
         cursor = connection.cursor()
         cursor.execute(f"SELECT count(id) from promo")
         countangka = cursor.fetchall()
+        cursor.execute(f"SELECT id from promo")
+        idangka = cursor.fetchall()
         print(countangka)
-        idbaru = countangka[0][0] + 2
+        # idbaru = countangka[0][0] + 2
+        id = countangka[0][0] 
+        while (id in idangka) :
+            id += 1
+        idbaru = id
 
         query = f"""INSERT INTO promo (id,promoname, discount) VALUES ( '{idbaru}','{name}', '{quantity}');"""
         cursor.execute(query)
@@ -72,7 +78,15 @@ class PromoRepository:
         cursor.execute(f"SELECT count(id) from promo")
         countangka = cursor.fetchall()
         print(countangka)
-        idbaru = countangka[0][0] + 2
+        # idbaru = countangka[0][0] + 2
+        cursor.execute(f"SELECT id from promo")
+        idangka = cursor.fetchall()
+        print(countangka)
+        # idbaru = countangka[0][0] + 2
+        id = countangka[0][0] 
+        while (id in idangka) :
+            id += 1
+        idbaru = id
         print(idbaru)
         query = f"""INSERT INTO promo (id,promoname, discount) VALUES ( '{idbaru}','{name}', '{quantity}');"""
         cursor.execute(query)
